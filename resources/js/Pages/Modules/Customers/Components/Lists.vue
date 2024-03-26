@@ -69,7 +69,7 @@
         </table>
         <Pagination class="ms-2 me-2" v-if="meta" @fetch="fetch" :lists="lists.length" :links="links" :pagination="meta" />
     </div>
-    <Create :dropdowns="dropdowns" :types="types" ref="create"/>
+    <Create @message="fetch()" :dropdowns="dropdowns" :types="types" ref="create"/>
     <Download @message="fetch()" ref="download"/>
     <Sync @message="fetch()" ref="sync"/>
 </template>

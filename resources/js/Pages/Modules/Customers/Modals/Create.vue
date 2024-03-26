@@ -233,6 +233,7 @@ export default {
                 this.form.post('/customers',{
                     preserveScroll: true,
                     onSuccess: (response) => {
+                        this.$emit('message',true);
                         this.hide();
                     },
                 });
