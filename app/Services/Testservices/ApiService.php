@@ -9,17 +9,11 @@ class ApiService
     use HandlesCurl;
 
     public function search($request){
-        // $keyword = $request->keyword;
-        // $type = $request->type;
-        // $laboratory = $request->laboratory_type;
-        // $url = '?type='.$type.'&laboratory='.$laboratory.'&keyword='.str_replace('+', ' ', $keyword);
         $postData = array(
             'type' => $request->type,
             'laboratory' => $request->laboratory_type,
             'keyword' => $request->keyword
         );
-        // $response = $this->handleCurl('search','names'.$url);
-
         $response = $this->handlePost($postData,'search/names');
         return json_decode($response);
     }   

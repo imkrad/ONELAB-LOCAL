@@ -37,7 +37,6 @@ class TestserviceClass
 
             $response = curl_exec($curl);
             curl_close($curl);
-            return $response;
             $datas = json_decode($response);
             $synced = $datas->success;
 
