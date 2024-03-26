@@ -18,7 +18,7 @@
                             <div class="p-2 mt-4">
                                 <form @submit.prevent="preview" enctype="multipart/form-data">
                                     <p class="text-muted">Sync <span class="fs-bold text-success">{{syncable}}</span> testservices to the central server.</p>
-                                    <p class="text-muted mt-n3">It will syncronize testservices to the central server for the referral system.</p>
+                                    <p class="text-muted mt-n3">It will syncronize all testservices to the central server for the referral system.</p>
                                     <span v-if="isLoading"><i class='bx bx-loader-circle bx-spin mt-2'></i><span class="text-muted ms-1 mt-n4">Loading ... </span></span>
 
                                     <div class="alert alert-danger mb-xl-0" role="alert" v-if="oops"><strong>Something is wrong!</strong> Contact Administrator! <!----></div>
