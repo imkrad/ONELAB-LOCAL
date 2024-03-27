@@ -19,6 +19,9 @@ class CustomerController extends Controller
 
     public function index(Request $request){
         switch($request->option){
+            case 'pick':
+                return $this->customer->pick($request);
+            break;
             case 'search':
                 return $this->customer->search($request);
             break;

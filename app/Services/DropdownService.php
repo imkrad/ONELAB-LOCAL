@@ -13,6 +13,7 @@ use App\Models\{
     ListStatus,
     SchoolCampus,
     Laboratory,
+    ListDiscount
 };
 
 class DropdownService
@@ -91,11 +92,33 @@ class DropdownService
         $data = ListDropdown::where('classification','Laboratory')->get()->map(function ($item) {
             return [
                 'value' => $item->id,
+                'name' => $item->name,
+                'others' => $item->others
+            ];
+        });
+        return $data;
+    }
+
+    public function purposes(){
+        $data = ListDropdown::where('classification','Purpose')->get()->map(function ($item) {
+            return [
+                'value' => $item->id,
                 'name' => $item->name
             ];
         });
         return $data;
     }
+
+    public function modes(){
+        $data = ListDropdown::where('classification','Mode of Release')->get()->map(function ($item) {
+            return [
+                'value' => $item->id,
+                'name' => $item->name
+            ];
+        });
+        return $data;
+    }
+
 
     public function laboratories(){
         $data = Laboratory::with('member')->where('is_active',1)->get()->map(function ($item) {
@@ -103,6 +126,22 @@ class DropdownService
                 'value' => $item->id,
                 'name' => $item->member->name,
                 'short' => $item->name
+            ];
+        });
+        return $data;
+    }
+
+    public function discounts(){
+        $data = ListDiscount::with('based','type','subtype')->where('is_active',1)->get()->map(function ($item) {
+            $total = ($item->subtype->name == 'Percentage') ? $item->value.'%' : '₱'.$item->value;
+            $name = ($item->name === 'Regular') ? $item->name : $item->name.' ('.$total.')';
+            return [
+                'value' => $item->id,
+                'name' => $name,
+                'number' => $item->value,
+                'type' => $item->type->name,
+                'based' => $item->based->name,
+                'subtype' => $item->subtype->name,
             ];
         });
         return $data;

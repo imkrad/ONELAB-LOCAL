@@ -48,6 +48,18 @@ class AuthenticatedSessionController extends Controller
                 ])->onlyInput('email');
             }
         }
+
+        if(\Auth::user()->role === 'Administrator'){
+            if(\Auth::user()->is_active){
+                return redirect()->intended(route('dashboard', absolute: false));
+            }else{
+                return redirect()->intended('/installation');
+            }
+        }else{
+            if(\Auth::user()->is_active){
+                return redirect()->intended(route('dashboard', absolute: false));
+            }
+        }
     }
 
     /**

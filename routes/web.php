@@ -10,6 +10,7 @@ Route::middleware(['2fa','auth','verified'])->group(function () {
     Route::resource('/profile', App\Http\Controllers\User\ProfileController::class);
 
     Route::resource('/customers', App\Http\Controllers\CustomerController::class);
+    Route::resource('/requests', App\Http\Controllers\RequestController::class);
 
     Route::prefix('services')->group(function(){
         Route::resource('/testservices', App\Http\Controllers\Services\TestserviceController::class);

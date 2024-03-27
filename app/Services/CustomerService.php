@@ -77,6 +77,22 @@ class CustomerService
         return $data;
     }
 
+    public function pick($request){
+        $keyword = $request->keyword;
+        $data = Customer::with('conformes')->with('customer_name')->where('name', 'LIKE', "%{$keyword}%")
+        ->orWhereHas('customer_name', function ($query) use ($keyword) {
+            $query->where('name', 'LIKE', "%$keyword%");
+        })
+        ->get()->map(function ($item) {
+            return [
+                'value' => $item->id,
+                'name' => $item->customer_name->name.' - '.$item->name,
+                'conformes' => $item->conformes
+            ];
+        });
+        return $data;
+    }
+
     public function counts($id){
         $array = [
             ['counts' => 1000,'name' => 'Wallet', 'icon' => 'ri-wallet-3-fill', 'color' => 'primary'],
