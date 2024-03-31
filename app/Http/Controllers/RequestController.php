@@ -4,11 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\DropdownService;
+use App\Services\RequestService;
+use App\Traits\HandlesTransaction;
+use App\Http\Requests\TsrRequest;
 
 class RequestController extends Controller
 {
-    public function __construct(DropdownService $dropdown){
+    use HandlesTransaction;
+
+    public function __construct(DropdownService $dropdown, RequestService $req){
         $this->dropdown = $dropdown;
+        $this->req = $req;
     }
 
     public function index(Request $request){
@@ -24,4 +30,18 @@ class RequestController extends Controller
             ]);
         }
     }
+
+    public function store(TsrRequest $request){
+        $result = $this->handleTransaction(function () use ($request) {
+            return $this->req->save($request);
+        });
+
+        return back()->with([
+            'data' => $result['data'],
+            'message' => $result['message'],
+            'info' => $result['info'],
+            'status' => $result['status'],
+        ]);
+    }
+
 }

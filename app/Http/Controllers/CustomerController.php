@@ -48,7 +48,11 @@ class CustomerController extends Controller
 
     public function store(CustomerRequest $request){
         $result = $this->handleTransaction(function () use ($request) {
-            return $this->customer->save($request);
+            if($request->type == 'customer'){
+                return $this->customer->save($request);
+            }else{
+                return $this->customer->conforme($request);
+            }
         });
 
         return back()->with([

@@ -9,6 +9,8 @@ use App\Models\ListDropdown;
 use App\Models\ListName;
 use App\Models\ListMethod;
 use App\Models\ListRole;
+use App\Models\ListDiscount;
+use App\Models\ListStatus;
 use App\Traits\HandlesCurl;
 
 class ListService
@@ -22,7 +24,7 @@ class ListService
 
     public function fetch(){
         set_time_limit(0);
-        $arrays = ['dropdowns','names','methods','roles'];
+        $arrays = ['dropdowns','roles','discounts','statuses'];
         try {
             foreach($arrays as $array){
                 $response = $this->handleCurl('lists',$array);
@@ -41,6 +43,12 @@ class ListService
                         break;
                         case 'roles':
                             ListRole::insertOrIgnore((array)$data); 
+                        break;
+                        case 'discounts':
+                            ListDiscount::insertOrIgnore((array)$data); 
+                        break;
+                        case 'statuses':
+                            ListStatus::insertOrIgnore((array)$data); 
                         break;
                     }
                 }

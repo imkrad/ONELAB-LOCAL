@@ -23,7 +23,7 @@ export default {
         },
         clear(){
             this.$refs.multiselect.clear();
-        }
+        },
     }
 }
 </script>

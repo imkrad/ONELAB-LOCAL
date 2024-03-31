@@ -89,7 +89,7 @@ class DropdownService
     }
 
     public function laboratory_types(){
-        $data = ListDropdown::where('classification','Laboratory')->get()->map(function ($item) {
+        $data = ListDropdown::where('classification','Laboratory')->where('is_active',1)->get()->map(function ($item) {
             return [
                 'value' => $item->id,
                 'name' => $item->name,

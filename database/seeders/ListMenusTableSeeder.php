@@ -6,9 +6,8 @@ use Illuminate\Database\Seeder;
 
 class ListMenusTableSeeder extends Seeder
 {
-
     /**
-     * Auto generated seed file
+     * Auto generated seeder file.
      *
      * @return void
      */
@@ -175,8 +174,21 @@ class ListMenusTableSeeder extends Seeder
                 'is_mother' => 0,
                 'is_active' => 1,
             ),
+            12 => 
+            array (
+                'id' => 13,
+                'name' => 'TS Requests',
+                'icon' => 'ri-hand-coin-fill',
+                'route' => '/requests',
+                'path' => 'Modules/Requests',
+                'group' => 'Menu',
+                'order' => 7,
+                'has_child' => 0,
+                'is_mother' => 1,
+                'is_active' => 1,
+            ),
         ));
-        
+
         
     }
 }

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('list_discounts', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->increments('id');
+            $table->tinyIncrements('id');
             $table->string('name')->unique();
             $table->string('value');
             $table->dateTime('from')->nullable();

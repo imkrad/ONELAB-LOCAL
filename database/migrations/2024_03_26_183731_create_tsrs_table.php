@@ -15,15 +15,20 @@ return new class extends Migration
             $table->engine = 'InnoDB';
             $table->bigIncrements('id');
             $table->string('code')->unique();
-            $table->integer('laboratory_id')->unsigned()->index();
-            $table->foreign('laboratory_id')->references('id')->on('laboratories')->onDelete('cascade');
+            $table->json('mode');
+            $table->tinyInteger('laboratory_id')->unsigned()->index();
+            $table->foreign('laboratory_id')->references('id')->on('list_dropdowns')->onDelete('cascade');
             $table->tinyInteger('purpose_id')->unsigned()->index();
             $table->foreign('purpose_id')->references('id')->on('list_dropdowns')->onDelete('cascade');
+            $table->tinyInteger('status_id')->unsigned()->index();
+            $table->foreign('status_id')->references('id')->on('list_statuses')->onDelete('cascade');
             $table->bigInteger('customer_id')->unsigned()->index();
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
+            $table->bigInteger('conforme_id')->unsigned()->index();
+            $table->foreign('conforme_id')->references('id')->on('customer_conformes')->onDelete('cascade');
             $table->bigInteger('received_by')->unsigned()->index();
             $table->foreign('received_by')->references('id')->on('users')->onDelete('cascade');
-            $table->datetime('due_at')->unique();
+            $table->datetime('due_at');
             $table->timestamps();
         });
     }

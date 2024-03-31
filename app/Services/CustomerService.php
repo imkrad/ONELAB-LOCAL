@@ -6,6 +6,7 @@ use Hashids\Hashids;
 use App\Models\Customer;
 use App\Models\Laboratory;
 use App\Models\CustomerName;
+use App\Models\CustomerConforme;
 use App\Http\Resources\CustomerResource;
 
 class CustomerService
@@ -65,6 +66,21 @@ class CustomerService
         ];
     }
 
+    public function conforme($request){
+        $data = CustomerConforme::create($request->all());
+        $customer = CustomerConforme::findOrFail($data->id);
+        $conforme = [
+            'value' => $customer->id,
+            'name' => $customer->name,
+            'contact_no' => $customer->contact_no
+        ];
+        return [
+            'data' => $conforme,
+            'message' => 'Conforme creation was successful!', 
+            'info' => "You've successfully created the new conforme."
+        ];
+    }
+
     public function search($request){
         $keyword = $request->keyword;
         $data = CustomerName::where('name', 'LIKE', "%{$keyword}%")->get()->map(function ($item) {
@@ -87,7 +103,13 @@ class CustomerService
             return [
                 'value' => $item->id,
                 'name' => $item->customer_name->name.' - '.$item->name,
-                'conformes' => $item->conformes
+                'conformes' => $item->conformes->map(function ($i) {
+                    return [
+                        'value' => $i->id,
+                        'name' => $i->name,
+                        'contact_no' => $i->contact_no
+                    ];
+                })
             ];
         });
         return $data;

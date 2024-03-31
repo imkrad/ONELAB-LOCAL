@@ -32,23 +32,7 @@ class DatabaseSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-        $this->call(ConfigurationsTableSeeder::class);
+       
         $this->call(ListMenusTableSeeder::class);
-        // $this->call(LocationRegionsTableSeeder::class);
-        // $this->call(LocationProvincesTableSeeder::class);
-        // $this->call(LocationMunicipalitiesTableSeeder::class);
-        // $this->call(LocationBarangaysTableSeeder::class);
-        // $this->call(ConfigurationsTableSeeder::class);
-        // $this->call(ListDropdownsTableSeeder::class);
-        // $this->call(ConfigurationsTableSeeder::class);
-        // $this->call(ListMenusTableSeeder::class);
-        // $this->call(MembersTableSeeder::class);
-        // $this->call(LaboratoriesTableSeeder::class);
-        // $this->call(AddressesTableSeeder::class);
-        // $this->call(CustomerNamesTableSeeder::class);
-        // $this->call(CustomersTableSeeder::class);
-        // $this->call(ListNamesTableSeeder::class);
-        // $this->call(ListMethodsTableSeeder::class);
-        // $this->call(ListTestservicesTableSeeder::class);
     }
 }

@@ -4,12 +4,6 @@
             <div class="input-group mb-1">
                 <span class="input-group-text"> <i class="ri-search-line search-icon"></i></span>
                 <input type="text" v-model="filter.keyword" placeholder="Search Request" class="form-control" style="width: 35%;">
-                <span @click="openSync" class="input-group-text"  v-b-tooltip.hover title="Sync Customer" style="cursor: pointer;"> 
-                    <i class="ri-upload-cloud-line"></i>
-                </span>
-                <span @click="openDownload" class="input-group-text"  v-b-tooltip.hover title="Download Customer" style="cursor: pointer;"> 
-                    <i class="ri-download-cloud-fill"></i>
-                </span>
                 <span @click="refresh" class="input-group-text" v-b-tooltip.hover title="Refresh" style="cursor: pointer;"> 
                     <i class="bx bx-refresh search-icon"></i>
                 </span>
@@ -24,13 +18,12 @@
             <thead class="table-light">
                 <tr class="fs-11">
                     <th></th>
-                    <th style="width: 35%;">Name</th>
-                    <th style="width: 14%;" class="text-center">Bussiness</th>
-                    <!-- <th style="width: 14%;" class="text-center">Industry</th> -->
-                    <!-- <th style="width: 14%;" class="text-center">Classification</th> -->
-                    <th style="width: 15%;" class="text-center">Email</th>
-                    <th style="width: 15%;" class="text-center">Contact No.</th>
-                    <th style="width: 13%;" class="text-center">Status</th>
+                    <th style="width: 15%;">Code</th>
+                    <th style="width: 20%;" class="text-center">Customer</th>
+                    <th style="width: 10%;" class="text-center">Total</th>
+                    <th style="width: 15%;" class="text-center">Request At</th>
+                    <th style="width: 15%;" class="text-center">Due At</th>
+                    <th style="width: 15%;" class="text-center">Status</th>
                     <th style="width: 7%;" ></th>
                 </tr>
             </thead>

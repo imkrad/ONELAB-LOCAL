@@ -168,6 +168,7 @@ export default {
                 longitude: null,
                 customer: null,
                 name_id: null,
+                type: 'customer'
             }),
             has_branch: false,
             names: [],

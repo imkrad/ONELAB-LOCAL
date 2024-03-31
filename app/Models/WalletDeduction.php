@@ -5,13 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CustomerConforme extends Model
+class WalletDeduction extends Model
 {
     use HasFactory;
-
-    protected $fillable = [
-        'name',
-        'contact_no',
-        'customer_id'
-    ];
 }
