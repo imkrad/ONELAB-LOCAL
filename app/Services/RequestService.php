@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Tsr;
 use App\Models\Laboratory;
 use App\Models\ListDropdown;
+use App\Http\Resources\TsrResource;
 
 class RequestService
 {
@@ -13,6 +14,32 @@ class RequestService
     public function __construct()
     {
         $this->laboratory = config('app.laboratory');
+    }
+
+    public function lists($request){
+        $data = TsrResource::collection(
+            Tsr::query()
+            ->with('laboratory','purpose','status','received.profile')
+            ->with('customer.customer_name','conforme','customer.address.region','customer.address.province','customer.address.municipality','customer.address.barangay')
+            ->with('payment.status','payment.collection','payment.type','payment.discounted')
+            ->when($request->keyword, function ($query, $keyword) {
+                $query->where('code', 'LIKE', "%{$keyword}%")
+                ->orWhereHas('customer',function ($query) use ($keyword) {
+                    $query->whereHas('customer_name',function ($query) use ($keyword) {
+                        $query->where('name', 'LIKE', "%{$keyword}%");
+                    });
+                });
+            })
+            ->when($request->status, function ($query, $status) {
+                $query->where('status_id',$status);
+            })
+            ->when($request->laboratory, function ($query, $laboratory) {
+                $query->where('laboratory_id',$laboratory);
+            })
+            ->orderBy('created_at','DESC')
+            ->paginate($request->count)
+        );
+        return $data;
     }
 
     public function save($request){

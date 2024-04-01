@@ -31,6 +31,9 @@ class TestserviceController extends Controller
             case 'syncable':
                 return $this->view->syncable();
             break;
+            case 'fetch':
+                return $this->dropdown->samples($request);
+            break;
             case 'search':
                 return $this->api->search($request);
             break;

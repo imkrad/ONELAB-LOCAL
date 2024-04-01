@@ -18,6 +18,52 @@ class TsrPayment extends Model
         'payment_id',
         'collection_id',
         'status_id',
-        'paid_at'
+        'paid_at',
+        'is_paid'
     ];
+
+    public function tsr()
+    {
+        return $this->belongsTo('App\Models\Tsr', 'tsr_id', 'id');
+    }
+
+    public function type()
+    {
+        return $this->belongsTo('App\Models\ListDropdown', 'payment_id', 'id');
+    }
+
+    public function collection()
+    {
+        return $this->belongsTo('App\Models\ListDropdown', 'collection_id', 'id');
+    }
+
+    public function status()
+    {
+        return $this->belongsTo('App\Models\ListStatus', 'status_id', 'id');
+    }
+
+    public function discounted()
+    {
+        return $this->belongsTo('App\Models\ListDiscount', 'discount_id', 'id');
+    }
+
+    public function setTotalAttribute($value)
+    {
+        $this->attributes['fee'] = trim(str_replace(',','',$value),'₱ ');
+    }
+
+    public function getTotalAttribute($value)
+    {
+        return '₱ '.$value;
+    }
+
+    public function setDiscountAttribute($value)
+    {
+        $this->attributes['fee'] = trim(str_replace(',','',$value),'₱ ');
+    }
+
+    public function getDiscountAttribute($value)
+    {
+        return '₱ '.$value;
+    }
 }

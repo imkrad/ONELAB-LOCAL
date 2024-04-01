@@ -17,6 +17,7 @@ return new class extends Migration
             $table->decimal('total',12,2)->default(0.00);
             $table->decimal('discount',12,2)->default(0.00);
             $table->string('or_number')->nullable();
+            $table->boolean('is_paid')->default(0);
             $table->tinyInteger('discount_id')->unsigned()->index();
             $table->foreign('discount_id')->references('id')->on('list_discounts')->onDelete('cascade');
             $table->tinyInteger('payment_id')->unsigned()->nullable();
@@ -27,7 +28,7 @@ return new class extends Migration
             $table->foreign('status_id')->references('id')->on('list_statuses')->onDelete('cascade');
             $table->bigInteger('tsr_id')->unsigned()->index();
             $table->foreign('tsr_id')->references('id')->on('tsrs')->onDelete('cascade');
-            $table->datetime('paid_at');
+            $table->datetime('paid_at')->nullable();
         });
     }
 

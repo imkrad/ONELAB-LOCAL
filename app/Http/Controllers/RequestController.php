@@ -19,13 +19,17 @@ class RequestController extends Controller
 
     public function index(Request $request){
         switch($request->option){
+            case 'lists':
+                return $this->req->lists($request);
+            break;
             default :
             return inertia('Modules/Requests/Index',[
                 'dropdowns' => [
                     'laboratories' => $this->dropdown->laboratory_types(),
                     'purposes' => $this->dropdown->purposes(),
                     'modes' => $this->dropdown->modes(),
-                    'discounts' => $this->dropdown->discounts()
+                    'discounts' => $this->dropdown->discounts(),
+                    'statuses' => $this->dropdown->statuses('Request'),
                 ]
             ]);
         }

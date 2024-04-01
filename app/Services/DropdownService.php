@@ -13,7 +13,8 @@ use App\Models\{
     ListStatus,
     SchoolCampus,
     Laboratory,
-    ListDiscount
+    ListDiscount,
+    ListName
 };
 
 class DropdownService
@@ -142,6 +143,32 @@ class DropdownService
                 'type' => $item->type->name,
                 'based' => $item->based->name,
                 'subtype' => $item->subtype->name,
+            ];
+        });
+        return $data;
+    }
+
+    public function statuses($type){
+        $data = ListStatus::where('type',$type)->where('is_active',1)->get()->map(function ($item) {
+            return [
+                'value' => $item->id,
+                'name' => $item->name,
+                'type' => $item->type,
+                'color' => $item->color,
+                'others' => $item->others,
+            ];
+        });
+        return $data;
+    }
+
+    public function samples($request){
+        $type = $request->type;
+        $laboratory = $request->laboratory;
+        $keyword = $request->keyword;
+        $data = ListName::where('name', 'LIKE', "%{$keyword}%")->where('type_id',$type)->where('laboratory_type',$laboratory)->where('is_active',1)->get()->map(function ($item) {
+            return [
+                'value' => $item->id,
+                'name' => $item->name
             ];
         });
         return $data;
