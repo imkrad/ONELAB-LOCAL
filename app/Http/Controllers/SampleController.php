@@ -9,9 +9,23 @@ use App\Http\Requests\SampleRequest;
 
 class SampleController extends Controller
 {
-    public function store(TsrRequest $request){
+    use HandlesTransaction;
+
+    public function __construct(SampleService $sample){
+        $this->sample = $sample;
+    }
+
+    public function index(Request $request){
+        switch($request->option){
+            case 'lists':
+                return $this->sample->lists($request);
+            break;
+        }
+    }
+
+    public function store(SampleRequest $request){
         $result = $this->handleTransaction(function () use ($request) {
-            return $this->req->save($request);
+            return $this->sample->save($request);
         });
 
         return back()->with([

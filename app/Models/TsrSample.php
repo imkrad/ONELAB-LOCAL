@@ -15,7 +15,6 @@ class TsrSample extends Model
         'customer_description',
         'description',
         'is_disposed',
-        'sampletype_id',
         'tsr_id',
     ];
 
@@ -23,12 +22,7 @@ class TsrSample extends Model
     {
         return $this->belongsTo('App\Models\Tsr', 'tsr_id', 'id');
     }
-
-    public function sampletype()
-    {
-        return $this->belongsTo('App\Models\ListName', 'sampletype_id', 'id');
-    }
-
+    
     public function getUpdatedAtAttribute($value)
     {
         return date('M d, Y g:i a', strtotime($value));

@@ -26,6 +26,11 @@ class Tsr extends Model
         return $this->hasOne('App\Models\TsrPayment', 'tsr_id');
     }
 
+    public function samples()
+    {
+        return $this->hasMany('App\Models\TsrSample', 'tsr_id');
+    }
+
     public function laboratory()
     {
         return $this->belongsTo('App\Models\ListDropdown', 'laboratory_id', 'id');

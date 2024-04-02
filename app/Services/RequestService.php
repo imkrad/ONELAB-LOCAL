@@ -51,7 +51,7 @@ class RequestService
             'received_by' => \Auth::user()->id
         ]));
         $data->payment()->create(array_merge($request->all(),[
-            'status_id' => 5,
+            'status_id' => 6,
         ]));
 
         return [

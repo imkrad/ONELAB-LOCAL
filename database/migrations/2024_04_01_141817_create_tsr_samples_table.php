@@ -19,8 +19,6 @@ return new class extends Migration
             $table->string('customer_description');
             $table->string('description');
             $table->boolean('is_disposed')->default(0);
-            $table->bigInteger('sampletype_id')->unsigned()->index();
-            $table->foreign('sampletype_id')->references('id')->on('list_names')->onDelete('cascade');
             $table->bigInteger('tsr_id')->unsigned()->index();
             $table->foreign('tsr_id')->references('id')->on('tsrs')->onDelete('cascade');
             $table->timestamps();

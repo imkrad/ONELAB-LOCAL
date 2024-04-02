@@ -10,10 +10,6 @@
                                 <div>
                                     <h4 class="fw-semibold text-primary">{{selected.customer.customer_name.name}} - {{selected.customer.name}}</h4>
                                     <div class="hstack gap-3 flex-wrap">
-                                        <div class="text-muted">Code :
-                                            <span class="text-body fw-medium">{{selected.code}}</span>
-                                        </div>
-                                        <div class="vr"></div>
                                         <div class="text-muted">Address : 
                                             <span class="text-body fw-medium">
                                                 {{selected.customer.address.barangay.name}},
@@ -22,7 +18,6 @@
                                                 {{selected.customer.address.region.region}}
                                             </span>
                                         </div>
-                                        
                                         <div class="vr"></div>
                                         <div class="text-muted">Conforme : 
                                             <span class="text-body fw-medium">{{selected.conforme.name}}</span>
@@ -31,6 +26,8 @@
                                         <div class="text-muted">Contact : 
                                             <span class="text-body fw-medium">{{selected.conforme.contact_no}}</span>
                                         </div>
+                                       
+                                        
                                     </div>
                                 </div>
                             </b-col>
@@ -41,7 +38,13 @@
         </template>
         <div class="row" style="margin-top: -23px; height: 100%;">
             <div class="col-md-9 border-right">
-                <Samples :id="selected.id" :laboratory="selected.laboratory.id"/>
+                <Samples :id="selected.id" 
+                :laboratory="selected.laboratory.id" 
+                :received="selected.created_at" 
+                :due="selected.due_at" 
+                :status="selected.status"
+                :code="selected.code"
+                ref="samples"/>
             </div>
             <div class="col-md-3">
                 <table class="table table-bordered" style="margin-left: -13px; margin-top: 2px;">
@@ -194,12 +197,14 @@ export default {
                     discounted: {},
                     status: {}
                 }
-            }
+            },
+            samples: []
         }
     },
     methods: {
         show(data){
             this.selected = data;
+            this.$refs.samples.fetch(this.selected.id);
             this.showModal = true;
         },
         hide(){
