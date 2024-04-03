@@ -22,6 +22,11 @@ class TsrSample extends Model
     {
         return $this->belongsTo('App\Models\Tsr', 'tsr_id', 'id');
     }
+
+    public function analyses()
+    {
+        return $this->hasMany('App\Models\TsrAnalysis', 'sample_id');
+    }
     
     public function getUpdatedAtAttribute($value)
     {

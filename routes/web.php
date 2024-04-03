@@ -11,7 +11,9 @@ Route::middleware(['2fa','auth','verified'])->group(function () {
 
     Route::resource('/customers', App\Http\Controllers\CustomerController::class);
     Route::resource('/requests', App\Http\Controllers\RequestController::class);
+
     Route::resource('/samples', App\Http\Controllers\SampleController::class);
+    Route::resource('/analyses', App\Http\Controllers\AnalysisController::class);
 
     Route::prefix('services')->group(function(){
         Route::resource('/testservices', App\Http\Controllers\Services\TestserviceController::class);

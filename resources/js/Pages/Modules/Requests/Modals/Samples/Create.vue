@@ -71,9 +71,6 @@ export default {
                 },
             });
         },
-        checkSearchSample: _.debounce(function(string) {
-            (string) ? this.fetchSample(string) : '';
-        }, 300),
         hide(){
             this.form.reset();
             this.editable = false;

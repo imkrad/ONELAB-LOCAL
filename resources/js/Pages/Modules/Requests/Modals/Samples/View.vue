@@ -22,6 +22,20 @@
                                     <th></th>
                                 </tr>
                             </thead>
+                            <tbody>
+                                <tr v-for="(list,index) in selected.analyses" v-bind:key="index">
+                                    <td class="text-center"> 
+                                        {{index + 1}}
+                                    </td>
+                                    <td>{{list.method}}</td>
+                                    <td class="text-center">{{list.reference}}</td>
+                                    <td class="text-center">{{list.fee}}</td>
+                                    <td class="text-center">
+                                        <span :class="'badge '+list.status.color+' '+list.status.others">{{list.status.name}}</span>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
                         </table>
                     </div>
                 </div>

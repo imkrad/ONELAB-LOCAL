@@ -11,7 +11,7 @@ class SampleService
 {
     public function lists($request){
         $data = SampleResource::collection(
-            TsrSample::query()->where('tsr_id',$request->id)
+            TsrSample::query()->with('analyses.status','analyses.testservice','analyses.sample','analyses.analyst')->where('tsr_id',$request->id)
             ->when($request->keyword, function ($query, $keyword) {
                 $query->where('code', 'LIKE', "%{$keyword}%")->orWhere('name', 'LIKE', "%{$keyword}%");
             })

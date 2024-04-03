@@ -14,8 +14,10 @@ use App\Models\{
     SchoolCampus,
     Laboratory,
     ListDiscount,
-    ListName
+    ListName,
+    ListTestservice
 };
+use App\Http\Resources\TestserviceResource;
 
 class DropdownService
 {
@@ -168,7 +170,14 @@ class DropdownService
         $data = ListName::where('name', 'LIKE', "%{$keyword}%")->where('type_id',$type)->where('laboratory_type',$laboratory)->where('is_active',1)->get()->map(function ($item) {
             return [
                 'value' => $item->id,
-                'name' => $item->name
+                'name' => $item->name,
+                'testnames' => ListTestservice::select('testname_id')->with('testname')->where('sampletype_id',$item->id)->distinct()->get()->map(function ($item) {
+                    return [ 
+                        'value' => $item->testname->id,
+                        'name' => $item->testname->name
+                    ];
+                }),
+                'testservices' => TestserviceResource::collection(ListTestservice::with('sampletype','testname','method.reference','method.method')->where('sampletype_id',$item->id)->get())
             ];
         });
         return $data;
