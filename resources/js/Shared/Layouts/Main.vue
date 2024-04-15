@@ -1,6 +1,5 @@
 <script>
 import { layoutComputed } from "@/Shared/State/helpers";
-
 import Vertical from "./Vertical.vue";
 import Horizontal from "./Horizontal.vue";
 import TwoColumns from "./Twocolumn.vue";

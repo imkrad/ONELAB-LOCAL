@@ -9,7 +9,7 @@
                                     class="ri-qr-code-fill align-middle"></i></span></div>
                         <div class="flex-grow-1 ms-3">
                             <p class="text-uppercase fw-semibold fs-12 text-muted mb-1">TSR CODE</p>
-                            <h4 class="mb-0"><span class="counter-value">{{code}}</span></h4>
+                            <h4 class="mb-0"><span class="counter-value">{{(code) ? code : 'Not yet available'}}</span></h4>
                         </div>
                     </div>
                 </div>
@@ -54,10 +54,10 @@
                 <span class="input-group-text fw-semibold fs-12"> {{(selected.length === samples.length) ? 'All' : selected.length}} samples are selected. </span>
                 <input type="text"  placeholder="Search Request" class="form-control" style="width: 55%;">
                
-                <span @click="openAddMany()" class="input-group-text" v-b-tooltip.hover title="Add Analysis" style="cursor: pointer;"> 
+                <span v-if="status.name == 'Pending'" @click="openAddMany()" class="input-group-text" v-b-tooltip.hover title="Add Analysis" style="cursor: pointer;"> 
                     <i class="ri-flask-fill text-success search-icon"></i>
                 </span>
-                <b-button @click="openAdd()" type="button" variant="primary">
+                <b-button v-if="status.name == 'Pending'" @click="openAdd()" type="button" variant="primary">
                     <i class="ri-add-circle-fill align-bottom me-1"></i>Add Sample
                 </b-button>
             </div>
@@ -76,31 +76,37 @@
                     </th>
                     <th width="20%">Sample Name</th>
                     <th class="text-center" width="40%">Description</th>
-                    <th class="text-center" width="15%">Analyses</th>
-                    <th class="text-center" width="15%">Status</th>
-                    <th></th>
+                    <th class="text-center" width="10%">Analyses</th>
+                    <th class="text-center" width="10%">Status</th>
+                    <th width="15%"></th>
                 </tr>
             </thead>
+        </table>
+        <simplebar style="height: calc(100vh - 400px); overflow: auto;">
+        <table class="table table-nowrap align-middle mb-0">
            <tbody>
                 <tr v-for="(list,index) in samples" v-bind:key="index">
-                    <td class="text-center">
+                    <td width="5%" class="text-center">
                         <input type="checkbox" v-model="list.selected" class="form-check-input" />
                     </td>
-                    <td>
+                    <td width="20%">
                         <h5 class="fs-13 mb-0 text-dark">{{list.name}}</h5>
-                        <p class="fs-12 text-muted mb-0">{{list.code}}</p>
+                        <p class="fs-12 text-muted mb-0">{{(list.code) ? list.code : 'Not yet available'}}</p>
                     </td>
-                    <td class="text-center"><i>{{list.customer_description}}</i>, {{list.description}}</td>
-                    <td class="text-center fs-12">0 / {{list.analyses.length}}</td>
-                    <td class="text-center"> Waiting </td>
-                    <td class="text-end">
+                    <td width="40%" class="text-center"><i>{{list.customer_description}}</i>, {{list.description}}</td>
+                    <td width="10%" class="text-center fs-12">0 / {{list.analyses.length}}</td>
+                    <td width="10%" class="text-center"> Waiting </td>
+                    <td width="15%" class="text-end">
                         <b-button @click="openView(list)" variant="soft-info" class="me-1" v-b-tooltip.hover title="View" size="sm">
                             <i class="ri-eye-fill align-bottom"></i>
                         </b-button>
-                        <b-button v-if="status.name != 'Pending'" @click="openQR(list)" variant="soft-success" v-b-tooltip.hover title="QR Code" size="sm">
+                        <b-button v-if="status.name != 'Pending'" @click="openQR(list)" class="me-1" variant="soft-success" v-b-tooltip.hover title="QR Code" size="sm">
                             <i class="ri-qr-code-fill align-bottom"></i>
                         </b-button>
-                        <b-button v-if="status.name == 'Pending'" @click="openAnalysis(list)" variant="soft-success" class="me-1" v-b-tooltip.hover title="Add Analysis" size="sm">
+                        <b-button v-if="status.name != 'Pending'" @click="openCertificate(list)" variant="soft-primary" v-b-tooltip.hover title="Certificate" size="sm">
+                            <i class="ri-file-paper-2-fill align-bottom"></i>
+                        </b-button>
+                        <b-button v-if="status.name == 'Pending'" @click="openAnalysis(list,index)" variant="soft-success" class="me-1" v-b-tooltip.hover title="Add Analysis" size="sm">
                             <i class="ri-flask-fill align-bottom"></i>
                         </b-button>
                         <b-button v-if="status.name == 'Pending'" @click="openCopy(list)" variant="soft-danger" v-b-tooltip.hover title="Copy" size="sm">
@@ -110,25 +116,28 @@
                 </tr>
             </tbody>
         </table>
+        </simplebar>
     </div>
     <QR ref="qr"/>
     <View ref="view"/>
-    <Analysis ref="analysis"/>
+    <Analysis @new="updateAnalysis" ref="analysis"/>
     <Create @new="updateSamples" ref="sample"/>
 </template>
 <script>
+import simplebar from "simplebar-vue";
 import QR from '../Modals/Samples/QR.vue';
 import View from '../Modals/Samples/View.vue';
 import Analysis from '../Modals/Samples/Analysis.vue';
 import Create from '../Modals/Samples/Create.vue';
 export default {
-    components: { Create, QR, View, Analysis },
+    components: { Create, QR, View, Analysis, simplebar },
     props: ['id','laboratory','received','due','status','code'],
     data(){
         return {
             currentUrl: window.location.origin,
             samples: [],
             mark: false,
+            index: null,
             selected: [],
         }
     },
@@ -142,7 +151,8 @@ export default {
         openQR(sample){
             this.$refs.qr.show(sample,this.received,this.due);
         },
-        openAnalysis(data){
+        openAnalysis(data,index){
+            this.index = index;
             this.$refs.analysis.show(data,this.laboratory);
         },
         openView(data){
@@ -166,6 +176,10 @@ export default {
         updateSamples(data){
             this.samples.push(data);
         },
+        updateAnalysis(data){
+            this.samples[this.index].analyses.push(data);
+            this.$emit('sum',data.fee);
+        }
     },
      watch: {
         mark(){

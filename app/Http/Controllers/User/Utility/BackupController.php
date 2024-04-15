@@ -24,7 +24,7 @@ class BackupController extends Controller
     }
 
     public function lists(){
-        $files = Storage::files('DOST');
+        $files = Storage::files('ONELAB-LOCAL');
         $fileDetails = collect($files)->map(function ($file) {
             return [
                 'name' => basename($file),
@@ -50,7 +50,7 @@ class BackupController extends Controller
     }
 
     public function show($name){
-        $filePath = '/app/DOST/' . $name;
+        $filePath = '/app/ONELAB-LOCAL/' . $name;
         return $this->streamFile($filePath);
     }
 

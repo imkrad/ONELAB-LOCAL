@@ -6,11 +6,12 @@ Route::get('/', [App\Http\Controllers\WelcomeController::class, 'index']);
 
 Route::middleware(['2fa','auth','verified'])->group(function () {
 
-    Route::get('/dashboard', function () {return inertia('Modules/Dashboard/Index'); })->name('dashboard');
+    Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index']);
     Route::resource('/profile', App\Http\Controllers\User\ProfileController::class);
 
     Route::resource('/customers', App\Http\Controllers\CustomerController::class);
     Route::resource('/requests', App\Http\Controllers\RequestController::class);
+    Route::resource('/drafts', App\Http\Controllers\DraftController::class);
 
     Route::resource('/samples', App\Http\Controllers\SampleController::class);
     Route::resource('/analyses', App\Http\Controllers\AnalysisController::class);

@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tsrs', function (Blueprint $table) {
+        Schema::create('drafts', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->bigIncrements('id');
-            $table->string('code')->unique()->nullable();
             $table->json('mode');
             $table->tinyInteger('laboratory_id')->unsigned()->index();
             $table->foreign('laboratory_id')->references('id')->on('list_dropdowns')->onDelete('cascade');
@@ -29,6 +28,8 @@ return new class extends Migration
             $table->bigInteger('received_by')->unsigned()->index();
             $table->foreign('received_by')->references('id')->on('users')->onDelete('cascade');
             $table->datetime('due_at');
+            $table->json('samples');
+            $table->json('analysis');
             $table->timestamps();
         });
     }
@@ -38,6 +39,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tsrs');
+        Schema::dropIfExists('drafts');
     }
 };

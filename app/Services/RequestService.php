@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Tsr;
+use App\Models\TsrSample;
 use App\Models\Laboratory;
 use App\Models\ListDropdown;
 use App\Http\Resources\TsrResource;
@@ -44,7 +45,7 @@ class RequestService
 
     public function save($request){
         $data = Tsr::create(array_merge($request->all(),[
-            'code' => $this->generateCode($request),
+            // 'code' => $this->generateCode($request),
             'status_id' => 1,
             'mode' => json_encode($request->mode),
             'customer_id' => $request->customer['value'],
@@ -61,12 +62,59 @@ class RequestService
         ];
     }
 
-    private function generateCode($request){
-        $laboratory_type = $request->laboratory_id;
+    public function cancel($request){
+        $data = Tsr::find($request->id);
+        $data->update($request->except(['option']));
+        
+        return [
+            'data' => $data,
+            'message' => 'TSR cancellation was successful!', 
+            'info' => "You've successfully updated the tsr status.",
+        ];
+    }
+
+    public function confirm($request){
+        $data = Tsr::where('id',$request->id)->first();
+        $data->status_id = $request->status_id;
+        $data->code = $this->generateCode($data);
+        $data->save();
+
+        $samples = TsrSample::where('tsr_id',$request->id)->get();
+        foreach($samples as $sample){
+            $s = TsrSample::findOrFail($sample->id);
+            $s->code = $this->generateSampleCode($data);
+            $s->save();
+        }
+
+        $final =  Tsr::query()
+        ->with('laboratory','purpose','status','received.profile')
+        ->with('customer.customer_name','conforme','customer.address.region','customer.address.province','customer.address.municipality','customer.address.barangay')
+        ->with('payment.status','payment.collection','payment.type','payment.discounted')
+        ->where('id',$request->id)
+        ->first();
+        return [
+            'data' => new TsrResource($final),
+            'message' => 'TSR was successfully confirmed!', 
+            'info' => "You've successfully updated the tsr status.",
+        ];
+    }
+
+    private function generateCode($data){
+        $laboratory_type = $data->laboratory_id;
         $lab = Laboratory::where('id',$this->laboratory)->first();
         $lab_type = ListDropdown::select('others')->where('id',$laboratory_type)->first();
-        $c = Tsr::where('laboratory_id',$laboratory_type)->count();
+        $c = Tsr::where('laboratory_id',$laboratory_type)->where('code','!=',NULL)->count();
         $code = $lab->code.'-'.date('Y').'-'.$lab_type->others.'-'.str_pad(($c+1), 5, '0', STR_PAD_LEFT);  
         return $code;
+    }
+
+    private function generateSampleCode($data){
+        $laboratory_type = $data->laboratory_id;
+        $year = date('Y');
+        $lab_type = ListDropdown::select('others')->where('id',$laboratory_type)->first();
+        $c = TsrSample::whereHas('tsr',function ($query) use ($laboratory_type) {
+            $query->where('laboratory_id',$laboratory_type);
+        })->whereYear('created_at',$year)->where('code','!=','NULL')->count();
+        return $lab_type->others.'-'.$year.'-'.str_pad(($c+1), 5, '0', STR_PAD_LEFT); 
     }
 }

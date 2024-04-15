@@ -35,11 +35,11 @@ class TsrAnalysis extends Model
 
     public function setFeeAttribute($value)
     {
-        $this->attributes['fee'] = trim(str_replace(',','',$value),'₱ ');
+        $this->attributes['fee'] = trim(str_replace(',','',$value),'₱');
     }
 
     public function getFeeAttribute($value)
     {
-        return '₱ '.$value;
+        return '₱'.number_format($value,2,'.',',');
     }
 }

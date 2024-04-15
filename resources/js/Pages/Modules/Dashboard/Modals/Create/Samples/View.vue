@@ -16,7 +16,7 @@
                                 <tr class="fs-11">
                                     <th class="text-center" width="5%">#</th>
                                     <th width="25%">Test Name</th>
-                                    <th class="text-center" width="40%">Method Reference</th>
+                                    <th class="text-center" width="40%">Method</th>
                                     <th class="text-center" width="15%">Fee</th>
                                     <th class="text-center" width="15%">Status</th>
                                     <th></th>
@@ -27,11 +27,8 @@
                                     <td class="text-center"> 
                                         {{index + 1}}
                                     </td>
-                                    <td>{{list.testname}}</td>
-                                    <td class="text-center">
-                                        <h5 class="fs-12 mb-0">{{list.method}}</h5>
-                                        <p class="fs-11 text-muted mb-0">{{list.reference}}</p>
-                                    </td>
+                                    <td>{{list.method}}</td>
+                                    <td class="text-center">{{list.reference}}</td>
                                     <td class="text-center">{{list.fee}}</td>
                                     <td class="text-center">
                                         <span :class="'badge '+list.status.color+' '+list.status.others">{{list.status.name}}</span>

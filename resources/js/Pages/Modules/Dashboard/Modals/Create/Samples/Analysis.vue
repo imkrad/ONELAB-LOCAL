@@ -133,7 +133,7 @@ export default {
             this.form.post('/analyses',{
                 preserveScroll: true,
                 onSuccess: (response) => {
-                    this.$emit('new',response.props.flash.data.data);
+                    this.$emit('new',response.props.flash.data);
                     this.hide();
                 },
             });

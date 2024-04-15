@@ -120,10 +120,9 @@ export default {
             this.showModal = true;
         },
         submit(){
-            this.form.post('/requests',{
+            this.form.post('/drafts',{
                 preserveScroll: true,
                 onSuccess: (response) => {
-                    this.$emit('message',true);
                     this.hide();
                 },
             });

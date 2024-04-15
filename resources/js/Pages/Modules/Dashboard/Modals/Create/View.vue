@@ -165,10 +165,6 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div class="d-grid gap-2">
-                                        <b-button v-if="selected.status.name !== 'Pending'" @click="openSave(selected.id)" class="mt-3" variant="light"><i class="ri-printer-fill"></i> Print TSR</b-button>
-                                        <b-button v-if="selected.status.name === 'Pending'" @click="openSave(selected.id)" class="mt-3" variant="primary">Save TSR</b-button>
-                                    </div>
                                 </div>
                             </td>
                          </tr>
@@ -178,13 +174,9 @@
             </div>
         </div>
     </b-modal>
-    <Save @selected="updateSelected" ref="save"/>
 </template>
 <script>
-import Save from './Save.vue';
-import Samples from '../Components/Samples.vue';
 export default {
-    components: { Samples, Save },
     data(){
         return {
             currentUrl: window.location.origin,
@@ -212,12 +204,6 @@ export default {
             this.selected = data;
             this.$refs.samples.fetch(this.selected.id);
             this.showModal = true;
-        },
-        openSave(id){
-            this.$refs.save.show(id);
-        },
-        updateSelected(data){
-            this.selected = data;
         },
         hide(){
             this.showModal = false;

@@ -8,7 +8,7 @@
                 </BCol>
                 <BCol lg="6" class="mb-1">
                     <InputLabel for="name" value="Description provided by customer"/>
-                    <Textarea id="name" v-model="form.customer_description" class="form-control" rows="2" :light="true"/>
+                        <Textarea id="name" v-model="form.customer_description" class="form-control" rows="2" :light="true"/>
                 </BCol>
                 <BCol lg="6" class="mb-1">
                     <InputLabel for="name" value="Description based on the sample submitted"/>
@@ -72,7 +72,7 @@ export default {
             });
         },
         hide(){
-            // this.form.reset();
+            this.form.reset();
             this.editable = false;
             this.showModal = false;
         }

@@ -48,4 +48,23 @@ class RequestController extends Controller
         ]);
     }
 
+    public function update(Request $request){
+        $result = $this->handleTransaction(function () use ($request) {
+            switch($request->option){
+                case 'Confirm':
+                    return $this->req->confirm($request);
+                break;
+                case 'Cancel':
+                    return $this->req->cancel($request);
+                break;
+            }
+        });
+        
+        return back()->with([
+            'data' => $result['data'],
+            'message' => $result['message'],
+            'info' => $result['info'],
+            'status' => $result['status'],
+        ]);
+    }
 }

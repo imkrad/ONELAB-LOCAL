@@ -8,7 +8,7 @@ class WelcomeController extends Controller
 {
     public function index(){
         if(\Auth::check()){
-            return redirect()->intended(route('dashboard', absolute: false));
+            return inertia('Modules/Dashboard/Index');
         }else{
             return inertia('Auth/Login');
         }

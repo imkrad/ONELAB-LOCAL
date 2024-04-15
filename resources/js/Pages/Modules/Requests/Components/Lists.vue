@@ -41,7 +41,8 @@
                         {{ (meta.current_page - 1) * meta.per_page + index + 1 }}.
                     </td>
                     <td>
-                        <h5 class="fs-13 mb-0 text-dark">{{list.code}}</h5>
+                        <h5 v-if="list.code" class="fs-13 mb-0 text-dark">{{list.code}}</h5>
+                        <h5 v-else class="fs-13 mb-0 text-muted">Not yet available</h5>
                         <p class="fs-12 text-muted mb-0">{{list.customer.customer_name.name}} - {{list.customer.name}}</p>
                     </td>
                     <td class="text-center fs-12">{{list.created_at}}</td>
@@ -58,8 +59,11 @@
                         <b-button @click="openView(list)" variant="soft-info" class="me-1" v-b-tooltip.hover title="View" size="sm">
                             <i class="ri-eye-fill align-bottom"></i>
                         </b-button>
-                        <b-button @click="openEdit(list,index)" variant="soft-success" v-b-tooltip.hover title="Print" size="sm">
+                        <b-button v-if="list.status.name !== 'Pending'" @click="openEdit(list,index)" variant="soft-success" v-b-tooltip.hover title="Print" size="sm">
                             <i class="ri-printer-fill align-bottom"></i>
+                        </b-button>
+                        <b-button v-if="list.status.name === 'Pending'" @click="openCancel(list,index)" variant="soft-danger" v-b-tooltip.hover title="Cancel" size="sm">
+                            <i class="ri-delete-bin-2-fill align-bottom"></i>
                         </b-button>
                     </td>
                 </tr>
@@ -67,16 +71,18 @@
         </table>
         <Pagination class="ms-2 me-2" v-if="meta" @fetch="fetch" :lists="lists.length" :links="links" :pagination="meta" />
     </div>
-    <Create :dropdowns="dropdowns" ref="create"/>
+    <Create :dropdowns="dropdowns" @message="fetch()" ref="create"/>
+    <Cancel ref="cancel"/>
     <View ref="view"/>
 </template>
 <script>
 import _ from 'lodash';
 import View from '../Modals/View.vue';
+import Cancel from '../Modals/Cancel.vue';
 import Create from '../Modals/Create.vue';
 import Pagination from "@/Shared/Components/Pagination.vue";
 export default {
-    components: { Pagination, Create, View },
+    components: { Pagination, Create, View, Cancel },
     props: ['dropdowns'],
     data(){
         return {
@@ -137,6 +143,9 @@ export default {
         },
         openView(data){
             this.$refs.view.show(data);
+        },
+        openCancel(data,index){
+            this.$refs.cancel.show(data.id);
         }
     }
 }

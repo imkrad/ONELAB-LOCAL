@@ -49,21 +49,21 @@ class TsrPayment extends Model
 
     public function setTotalAttribute($value)
     {
-        $this->attributes['fee'] = trim(str_replace(',','',$value),'₱ ');
+        $this->attributes['total'] = $this->attributes['total'] + trim(str_replace(',','',$value),'₱');
     }
 
     public function getTotalAttribute($value)
     {
-        return '₱ '.$value;
+        return '₱'.number_format($value,2,'.',',');
     }
 
     public function setDiscountAttribute($value)
     {
-        $this->attributes['fee'] = trim(str_replace(',','',$value),'₱ ');
+        $this->attributes['discount'] = trim(str_replace(',','',$value),'₱');
     }
 
     public function getDiscountAttribute($value)
     {
-        return '₱ '.$value;
+        return '₱'.$value;
     }
 }

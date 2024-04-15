@@ -11,7 +11,7 @@ class SampleService
 {
     public function lists($request){
         $data = SampleResource::collection(
-            TsrSample::query()->with('analyses.status','analyses.testservice','analyses.sample','analyses.analyst')->where('tsr_id',$request->id)
+            TsrSample::query()->with('analyses.status','analyses.testservice.method.method','analyses.testservice.testname','analyses.sample','analyses.analyst')->where('tsr_id',$request->id)
             ->when($request->keyword, function ($query, $keyword) {
                 $query->where('code', 'LIKE', "%{$keyword}%")->orWhere('name', 'LIKE', "%{$keyword}%");
             })
@@ -22,11 +22,9 @@ class SampleService
     }
 
     public function save($request){
-        $data = TsrSample::create(array_merge($request->all(),[
-            'code' => $this->generateCode($request),
-        ]));
-        $data = TsrSample::where('id',$data->id)->first();
-
+        $data = TsrSample::create($request->all());
+        $data = TsrSample::with('analyses.status','analyses.testservice.method.method','analyses.sample','analyses.analyst')->where('id',$data->id)->first();
+        
         return [
             'data' => $data,
             'message' => 'Sample added was successful!', 
