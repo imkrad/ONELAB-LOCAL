@@ -47,23 +47,23 @@ class TsrPayment extends Model
         return $this->belongsTo('App\Models\ListDiscount', 'discount_id', 'id');
     }
 
-    public function setTotalAttribute($value)
+    public function setSubtotalAttribute($value)
     {
-        $this->attributes['total'] = $this->attributes['total'] + trim(str_replace(',','',$value),'₱');
+        $this->attributes['subtotal'] = trim(str_replace(',','',$value),'₱');
     }
 
-    public function getTotalAttribute($value)
+    public function getSubtotalAttribute($value)
     {
         return '₱'.number_format($value,2,'.',',');
-    }
-
-    public function setDiscountAttribute($value)
-    {
-        $this->attributes['discount'] = trim(str_replace(',','',$value),'₱');
     }
 
     public function getDiscountAttribute($value)
     {
         return '₱'.$value;
+    }
+
+    public function getTotalAttribute($value)
+    {
+        return '₱'.number_format($value,2,'.',',');
     }
 }

@@ -37,4 +37,9 @@ class TsrSample extends Model
     {
         return date('M d, Y g:i a', strtotime($value));
     }
+
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = ucwords(strtolower($value));
+    }
 }

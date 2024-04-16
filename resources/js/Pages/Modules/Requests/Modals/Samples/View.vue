@@ -6,7 +6,7 @@
                     <div class="form-check card-radio">
                         <label class="form-check-label" for="shippingAddress02">
                             <span class="fs-14 mb-1 d-block">{{selected.name}} <span class="text-muted fs-12 fs-semibold">({{selected.code}})</span></span>
-                            <span class="text-muted fw-normal text-wrap mb-0 d-block">{{selected.customer_description}}, {{selected.description}}</span>
+                            <span class="text-muted fw-normal fs-12 text-wrap mb-0 mt-n1 d-block">{{selected.customer_description}}, {{selected.description}}</span>
                         </label>
                     </div>
                     <hr class="text-muted mt-4"/>

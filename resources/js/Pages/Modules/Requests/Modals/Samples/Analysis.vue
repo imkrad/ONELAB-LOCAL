@@ -52,7 +52,8 @@
         </form>
         <template v-slot:footer>
             <b-button @click="hide()" variant="light" block>Cancel</b-button>
-            <b-button @click="submit('ok')" variant="primary" block>Submit</b-button>
+            <b-button v-if="!has_many" @click="submit('ok')" variant="primary" block>Submit</b-button>
+            <b-button v-else @click="submitMany('ok')" variant="primary" block>Submit</b-button>
         </template>
     </b-modal>
 </template>
@@ -71,7 +72,14 @@ export default {
             form: useForm({
                 testservice_id: null,
                 sample_id: null,
-                fee: null
+                fee: null,
+                option: 'one'
+            }),
+            formmany: useForm({
+                testservice_id: null,
+                samples: {},
+                fee: null,
+                option: 'many'
             }),
             sampletype: null,
             testname: null,
@@ -105,11 +113,21 @@ export default {
         },
          "testservice"(newVal){
             if(newVal){
-                this.form.testservice_id = newVal.id;
-                this.form.fee = newVal.fee;
+                if(this.has_many){
+                    this.formmany.testservice_id = newVal.id;
+                    this.formmany.fee = newVal.fee;
+                }else{
+                    this.form.testservice_id = newVal.id;
+                    this.form.fee = newVal.fee;
+                }
             }else{
-                this.form.fee = null;
-                this.form.testservice_id = null;
+                if(this.has_many){
+                    this.formmany.fee = null;
+                    this.formmany.testservice_id = null;
+                }else{
+                    this.form.fee = null;
+                    this.form.testservice_id = null;
+                }
             }
         },
     },
@@ -123,6 +141,7 @@ export default {
         many(selected,laboratory){
             this.selected = selected;
             this.laboratory = laboratory;
+            this.formmany.samples = selected;
             this.has_many = true;
             this.showModal = true;
         },
@@ -134,6 +153,15 @@ export default {
                 preserveScroll: true,
                 onSuccess: (response) => {
                     this.$emit('new',response.props.flash.data.data);
+                    this.hide();
+                },
+            });
+        },
+        submitMany(){
+            this.formmany.post('/analyses',{
+                preserveScroll: true,
+                onSuccess: (response) => {
+                    this.$emit('update',true);
                     this.hide();
                 },
             });

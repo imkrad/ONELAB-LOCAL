@@ -75,10 +75,9 @@
                         <input class="form-check-input fs-16" v-model="mark" type="checkbox" value="option" />
                     </th>
                     <th width="20%">Sample Name</th>
-                    <th class="text-center" width="40%">Description</th>
+                    <th class="text-center" width="55%">Description</th>
                     <th class="text-center" width="10%">Analyses</th>
-                    <th class="text-center" width="10%">Status</th>
-                    <th width="15%"></th>
+                    <th width="10%"></th>
                 </tr>
             </thead>
         </table>
@@ -93,10 +92,9 @@
                         <h5 class="fs-13 mb-0 text-dark">{{list.name}}</h5>
                         <p class="fs-12 text-muted mb-0">{{(list.code) ? list.code : 'Not yet available'}}</p>
                     </td>
-                    <td width="40%" class="text-center"><i>{{list.customer_description}}</i>, {{list.description}}</td>
-                    <td width="10%" class="text-center fs-12">0 / {{list.analyses.length}}</td>
-                    <td width="10%" class="text-center"> Waiting </td>
-                    <td width="15%" class="text-end">
+                    <td width="55%" class="text-center"><i>{{list.customer_description}}</i>, {{list.description.substring(0, 20) + "..."}}</td>
+                    <td width="10%" class="text-center fs-12">{{list.analyses.filter(item => item.status.name !== "Pending").length}} / {{list.analyses.length}}</td>
+                    <td width="10%" class="text-end">
                         <b-button @click="openView(list)" variant="soft-info" class="me-1" v-b-tooltip.hover title="View" size="sm">
                             <i class="ri-eye-fill align-bottom"></i>
                         </b-button>
@@ -120,7 +118,7 @@
     </div>
     <QR ref="qr"/>
     <View ref="view"/>
-    <Analysis @new="updateAnalysis" ref="analysis"/>
+    <Analysis @new="updateAnalysis" @update="fetch(id)" ref="analysis"/>
     <Create @new="updateSamples" ref="sample"/>
 </template>
 <script>

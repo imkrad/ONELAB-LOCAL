@@ -48,7 +48,7 @@
                     <td class="text-center fs-12">{{list.created_at}}</td>
                     <td class="text-center fs-12">{{list.due_at}}</td>
                     <td class="text-center">
-                        <span :class="'badge '+list.status.color+' '+list.status.others">{{list.status.name}}</span>
+                        <span :class="'badge '+list.status.color">{{list.status.name}}</span>
                     </td>
                     <td class="text-center">{{list.payment.total}}</td>
                     <td class="text-center">

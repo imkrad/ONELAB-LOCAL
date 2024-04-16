@@ -60,6 +60,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasOne('App\Models\UserProfile', 'user_id');
     }
 
+    public function userrole()
+    {
+        return $this->hasOne('App\Models\UserRole', 'user_id');
+    }
+
     public function getActivitylogOptions(): LogOptions {
         return LogOptions::defaults()
         ->logOnly(['username','email','is_active'])

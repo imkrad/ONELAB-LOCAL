@@ -63,7 +63,7 @@
                                             </div>
                                             <div class="flex-grow-1 overflow-hidden">
                                                 <p class="mb-1 fs-12 text-muted">Status :</p> 
-                                                <span :class="'badge '+selected.status.color+' '+selected.status.others">{{selected.status.name}}</span>
+                                                <span :class="'badge '+selected.status.color">{{selected.status.name}}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -152,7 +152,7 @@
                                             <tbody>
                                                 <tr>
                                                     <td>Sub Total :</td>
-                                                    <td class="text-end" id="cart-subtotal">{{selected.payment.total}}</td>
+                                                    <td class="text-end" id="cart-subtotal">{{selected.payment.subtotal}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Discount : </td>
@@ -218,6 +218,7 @@ export default {
         },
         updateSelected(data){
             this.selected = data;
+            this.$refs.samples.fetch(this.selected.id);
         },
         hide(){
             this.showModal = false;

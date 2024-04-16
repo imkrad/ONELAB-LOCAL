@@ -15,6 +15,7 @@ return new class extends Migration
             $table->engine = 'InnoDB';
             $table->bigIncrements('id');
             $table->decimal('total',12,2)->default(0.00);
+            $table->decimal('subtotal',12,2)->default(0.00);
             $table->decimal('discount',12,2)->default(0.00);
             $table->string('or_number')->nullable();
             $table->boolean('is_paid')->default(0);

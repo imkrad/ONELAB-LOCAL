@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Tsr;
 use App\Models\TsrAnalysis;
 use App\Models\TsrPayment;
 use App\Http\Resources\AnalysisResource;
@@ -34,10 +35,77 @@ class AnalysisService
         ];
     }
 
+    public function saveMany($request){
+        $samples = $request->samples;
+        foreach($samples as $sample){
+            $data = TsrAnalysis::create(array_merge($request->all(),[
+                'status_id' => 9,
+                'sample_id' => $sample
+            ]));
+            if($data){
+                $data = TsrAnalysis::with('sample','testservice.method.method','status','analyst')->where('id',$data->id)->first();
+                $this->updateTotal($data->sample->tsr_id,$request->fee);
+            }
+        }
+
+        return [
+            'data' => 'Completed',
+            'message' => 'Analysis added was successful!', 
+            'info' => "You've successfully created the new analysis."
+        ];
+    }
+
     private function updateTotal($id,$fee){
-        $data = TsrPayment::where('tsr_id',$id)->first();
+        $data = TsrPayment::with('discounted')->where('tsr_id',$id)->first();
         $fee = (float) trim(str_replace(',','',$fee),'₱ ');
-        $data->total = (float) $data->total + $fee;
+        $subtotal = (float) trim(str_replace(',','',$data->subtotal),'₱ ');
+        if($data->discount_id === 1){
+            $discount = 0;
+            $subtotal = $subtotal + $fee;
+            $total = $subtotal;
+        }else{
+            $subtotal = $subtotal + $fee;
+            $discount = (float) (($data->discounted->value/100) * $subtotal);
+            $total =  ((float) $subtotal - (float) $discount);
+        }
+        // dd($subtotal,$discount,$total);
+        $data->subtotal = $subtotal;
+        $data->discount = $discount;
+        $data->total = $total;
         $data->save();
+    }
+
+    public function start($request){
+        $data = TsrAnalysis::find($request->id);
+        $data->status_id = $request->status_id;
+        $data->analyst_id = \Auth::user()->id;
+        $data->start_at = $request->start_at;
+        
+        if($data->save()){
+            if(TsrAnalysis::where('sample_id',$data->sample_id)->where('status_id',9)->count() === 0){
+                $tsr = Tsr::where('id',$request->tsr_id)->update(['status_id' => 4]);
+            }else{
+                $tsr = Tsr::where('id',$request->tsr_id)->update(['status_id' => 3]);
+            }
+        }
+        
+        return [
+            'data' => $data,
+            'message' => 'Sample analysis successfully started!', 
+            'info' => "You've successfully started the analyzation.",
+        ];
+    }
+
+    public function end($request){
+        $data = TsrAnalysis::find($request->id);
+        $data->status_id = $request->status_id;
+        $data->end_at = $request->end_at;
+        $data->save();
+        
+        return [
+            'data' => $data,
+            'message' => 'TSR cancellation was successful!', 
+            'info' => "You've successfully updated the tsr status.",
+        ];
     }
 }

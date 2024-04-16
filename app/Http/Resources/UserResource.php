@@ -15,6 +15,8 @@ class UserResource extends JsonResource
             'username' => $this->username,
             'email' => $this->email,
             'role' => $this->role,
+            'assigned_role' => $this->userrole->role->name,
+            'assigned_laboratory' => $this->userrole->laboratory->name,
             'avatar' => ($this->profile->avatar === 'avatar.jpg') ? '/images/avatars/'.$this->profile->avatar : '/storage/'.$this->profile->avatar,
             'name' => $this->profile->firstname.' '.$this->profile->lastname,
             'firstname' => $this->profile->firstname,
