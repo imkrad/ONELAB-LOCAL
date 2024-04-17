@@ -48,7 +48,7 @@ class CustomerService
         if($request->customer['value'] === $request->customer['name']){
             $name = new CustomerName;
             $name->name = $request->customer['value'];
-            $name->has_branches = 1;
+            $name->has_branches = $request->has_branches;
             if($name->save()){
                 $request['name_id'] = $name->id;
             }

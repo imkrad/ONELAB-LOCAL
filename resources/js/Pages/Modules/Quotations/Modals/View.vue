@@ -39,6 +39,7 @@
         <div class="row" style="margin-top: -23px; height: 100%;">
             <div class="col-md-9 border-right">
                 <Samples :id="selected.id" 
+                :lab="selected.laboratory.name"
                 :laboratory="selected.laboratory.id" 
                 :received="selected.created_at" 
                 :due="selected.due_at" 
@@ -86,8 +87,8 @@
                                                 </div>
                                             </div>
                                             <div class="flex-grow-1 overflow-hidden">
-                                                <p class="mb-1 fs-12 text-muted">Due At :</p>
-                                                <h6 class="text-truncate mb-0 fs-12">{{selected.due_at}}</h6>
+                                                <p class="mb-1 fs-12 text-muted">Discount type :</p>
+                                                <h6 class="text-truncate mb-0 fs-12">{{selected.discounted.name}} ({{selected.discounted.value}}%)</h6>
                                             </div>
                                         </div>
                                     </div>
@@ -107,41 +108,6 @@
                             </td>
                         </tr>
                         <tr>
-                            <td style="border-right: none; border-left: none;"><span class="fw-semibold fs-12 ms-2">Accounting Information</span></td>
-                        </tr>
-                        <tr>
-                            <td style="border-right: none; border-left: none;">
-                                <div class="row ms-n2 mb-2">
-                                    <div class="col-md-12">
-                                        <div class="d-flex">
-                                            <div class="flex-shrink-0 avatar-xs align-self-center me-3">
-                                                <div class="avatar-title bg-light rounded-circle fs-16 text-primary"><i class="ri-qr-code-fill"></i>
-                                                </div>
-                                            </div>
-                                            <div class="flex-grow-1 overflow-hidden">
-                                                <p class="mb-1 fs-12 text-muted">OR Number :</p>
-                                                <h6 class="text-truncate mb-0 fs-12" v-if="selected.payment.or_number">{{selected.payment.or_numbert}}</h6>
-                                                <span class="text-warning mb-0 fs-12" v-else>Not Available</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="d-flex mt-3">
-                                            <div class="flex-shrink-0 avatar-xs align-self-center me-3">
-                                                <div class="avatar-title bg-light rounded-circle fs-16 text-primary"><i class="ri-calendar-line"></i>
-                                                </div>
-                                            </div>
-                                            <div class="flex-grow-1 overflow-hidden">
-                                                <p class="mb-1 fs-12 text-muted">Paid At :</p>
-                                                <h6 class="text-truncate mb-0 fs-12" v-if="selected.payment.paid_at">{{selected.payment.paid_at}}</h6>
-                                                <span class="text-warning mb-0 fs-12" v-else>Not Available</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
                             <td style="border-right: none; border-left: none;"><span class="fw-semibold fs-12 ms-2">Payment Details</span></td>
                         </tr>
                         <tr style="border-bottom: none; border-left: none;">
@@ -152,22 +118,22 @@
                                             <tbody>
                                                 <tr>
                                                     <td>Sub Total :</td>
-                                                    <td class="text-end" id="cart-subtotal">{{selected.payment.subtotal}}</td>
+                                                    <td class="text-end" id="cart-subtotal">{{selected.subtotal}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Discount : </td>
-                                                    <td class="text-end" id="cart-discount">{{selected.payment.discount}}</td>
+                                                    <td class="text-end" id="cart-discount">{{selected.discount}}</td>
                                                 </tr>
                                                 <tr class="table-active">
                                                     <th>Total :</th>
-                                                    <td class="text-end"><span class="fw-semibold" id="cart-total"> {{selected.payment.total}} </span></td>
+                                                    <td class="text-end"><span class="fw-semibold" id="cart-total">{{selected.total}}</span></td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                     </div>
                                     <div class="d-grid gap-2">
-                                        <b-button v-if="selected.status.name !== 'Pending'" @click="openSave(selected.id)" class="mt-3" variant="light"><i class="ri-printer-fill"></i> Print TSR</b-button>
-                                        <b-button v-if="selected.status.name === 'Pending'" @click="openSave(selected.id)" class="mt-3" variant="primary">Save TSR</b-button>
+                                        <b-button v-if="selected.status.name !== 'Pending'" @click="openPrint(selected.id)" class="mt-3" variant="light"><i class="ri-printer-fill"></i> Print Quotation</b-button>
+                                        <b-button v-if="selected.status.name === 'Pending'" @click="openSave(selected.id)" class="mt-3" variant="primary">Save Quotation</b-button>
                                     </div>
                                 </div>
                             </td>
@@ -195,14 +161,11 @@ export default {
                     address: { barangay: '', municipality: '', province: '', region: ''}
                 },
                 conforme: {},
+                discounted:{},
                 received: { profile: {} },
                 laboratory: {},
                 status: {},
                 purpose: {},
-                payment: {
-                    discounted: {},
-                    status: {}
-                }
             },
             samples: []
         }
@@ -216,9 +179,13 @@ export default {
         openSave(id){
             this.$refs.save.show(id);
         },
+        openPrint(id){
+            window.open(this.currentUrl + '/quotations?option=print&id='+id);
+        },
         updateSelected(data){
             this.selected = data;
             this.$refs.samples.fetch(this.selected.id);
+            this.$emit('updateMain',data);
         },
         hide(){
             this.showModal = false;

@@ -26,12 +26,12 @@
             <thead class="table-light">
                 <tr class="fs-11">
                     <th></th>
-                    <th style="width: 30%;">Customer</th>
-                    <th style="width: 15%;" class="text-center">Request At</th>
-                    <th style="width: 15%;" class="text-center">Due At</th>
+                    <th style="width: 25%;">Customer</th>
+                    <th style="width: 15%;" class="text-center">Laboratory</th>
+                    <th style="width: 15%;" class="text-center">Created By</th>
+                    <th style="width: 15%;" class="text-center">Created At</th>
                     <th style="width: 10%;" class="text-center">Status</th>
                     <th style="width: 10%;" class="text-center">Total</th>
-                    <th style="width: 10%;" class="text-center">Payment</th>
                     <th style="width: 7%;" ></th>
                 </tr>
             </thead>
@@ -45,25 +45,16 @@
                         <h5 v-else class="fs-13 mb-0 text-muted">Not yet available</h5>
                         <p class="fs-12 text-muted mb-0">{{list.customer.name}}</p>
                     </td>
-                    <td class="text-center fs-12">{{list.created_at}}</td>
-                    <td class="text-center fs-12">{{list.due_at}}</td>
-                    <td class="text-center">
+                    <td class="text-center fs-12">{{list.laboratory.name}}</td>
+                    <td class="text-center">{{list.received}}</td>
+                    <td class="text-center">{{list.created_at}}</td>
+                     <td class="text-center">
                         <span :class="'badge '+list.status.color">{{list.status.name}}</span>
                     </td>
-                    <td class="text-center">{{list.payment.total}}</td>
-                    <td class="text-center">
-                        <i v-if="list.payment.is_paid" class="ri-checkbox-circle-fill text-success fs-18" v-b-tooltip.hover :title="list.payment.status.name"></i>
-                        <i v-else class="ri-close-circle-fill text-danger fs-18" v-b-tooltip.hover :title="list.payment.status.name"></i>
-                    </td>
+                    <td class="text-center fs-12">{{list.total}}</td>
                     <td class="text-end">
-                        <b-button @click="openView(list)" variant="soft-info" class="me-1" v-b-tooltip.hover title="View" size="sm">
+                        <b-button @click="openView(list,index)" variant="soft-info" class="me-1" v-b-tooltip.hover title="View" size="sm">
                             <i class="ri-eye-fill align-bottom"></i>
-                        </b-button>
-                        <b-button v-if="list.status.name !== 'Pending'" @click="openEdit(list,index)" variant="soft-success" v-b-tooltip.hover title="Print" size="sm">
-                            <i class="ri-printer-fill align-bottom"></i>
-                        </b-button>
-                        <b-button v-if="list.status.name === 'Pending'" @click="openCancel(list,index)" variant="soft-danger" v-b-tooltip.hover title="Cancel" size="sm">
-                            <i class="ri-delete-bin-2-fill align-bottom"></i>
                         </b-button>
                     </td>
                 </tr>
@@ -73,7 +64,7 @@
     </div>
     <Create :dropdowns="dropdowns" @message="fetch()" ref="create"/>
     <Cancel ref="cancel"/>
-    <View ref="view"/>
+    <View @updateMain="updateMain" ref="view"/>
 </template>
 <script>
 import _ from 'lodash';
@@ -82,7 +73,7 @@ import Cancel from '../Modals/Cancel.vue';
 import Create from '../Modals/Create.vue';
 import Pagination from "@/Shared/Components/Pagination.vue";
 export default {
-    components: { Pagination, Create, View, Cancel },
+    components: { Pagination, Create, Cancel, View },
     props: ['dropdowns'],
     data(){
         return {
@@ -119,7 +110,7 @@ export default {
             this.fetch();
         }, 300),
         fetch(page_url){
-            page_url = page_url || '/requests';
+            page_url = page_url || '/quotations';
             axios.get(page_url,{
                 params : {
                     keyword: this.filter.keyword,
@@ -141,11 +132,15 @@ export default {
         openCreate(){
             this.$refs.create.show();
         },
-        openView(data){
+        openView(data,index){
+            this.index = index;
             this.$refs.view.show(data);
         },
         openCancel(data,index){
             this.$refs.cancel.show(data.id);
+        },
+        updateMain(data){
+            this.lists[this.index] = data;
         }
     }
 }

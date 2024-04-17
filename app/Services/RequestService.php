@@ -20,9 +20,11 @@ class RequestService
     public function lists($request){
         $data = TsrResource::collection(
             Tsr::query()
-            ->with('laboratory','purpose','status','received.profile')
-            ->with('customer.customer_name','conforme','customer.address.region','customer.address.province','customer.address.municipality','customer.address.barangay')
-            ->with('payment.status','payment.collection','payment.type','payment.discounted')
+            ->with('received:id','received.profile:id,firstname,lastname,user_id')
+            ->with('laboratory:id,name','purpose:id,name','status:id,name,color,others')
+            ->with('customer:id,name_id,email,name,contact_no,is_main','customer.customer_name:id,name,has_branches','customer.address:address,addressable_id,region_code,province_code,municipality_code,barangay_code','customer.address.region:code,name,region','customer.address.province:code,name','customer.address.municipality:code,name','customer.address.barangay:code,name')
+            ->with('conforme:id,name,contact_no')
+            ->with('payment:tsr_id,id,total,subtotal,discount,or_number,is_paid,paid_at,status_id,discount_id,collection_id,payment_id','payment.status:id,name,color,others','payment.collection:id,name','payment.type:id,name','payment.discounted:id,name,value')
             ->when($request->keyword, function ($query, $keyword) {
                 $query->where('code', 'LIKE', "%{$keyword}%")
                 ->orWhereHas('customer',function ($query) use ($keyword) {

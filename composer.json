@@ -7,6 +7,8 @@
     "require": {
         "php": "^8.2",
         "bacon/bacon-qr-code": "^2.0",
+        "barryvdh/laravel-dompdf": "^2.1",
+        "cheesegrits/iseed": "4.0.5",
         "hashids/hashids": "^5.0",
         "inertiajs/inertia-laravel": "^1.0",
         "jenssegers/agent": "^2.6",
@@ -16,7 +18,6 @@
         "maatwebsite/excel": "^3.1",
         "pragmarx/google2fa-laravel": "^2.0",
         "pragmarx/google2fa-qrcode": "^3.0",
-        "cheesegrits/iseed": "4.0.5",
         "spatie/laravel-activitylog": "^4.8",
         "spatie/laravel-backup": "^8.6"
     },
