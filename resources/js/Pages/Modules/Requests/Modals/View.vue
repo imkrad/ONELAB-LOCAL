@@ -219,6 +219,7 @@ export default {
         updateSelected(data){
             this.selected = data;
             this.$refs.samples.fetch(this.selected.id);
+            this.$emit('updateMain',data);
         },
         openPrint(id){
             window.open(this.currentUrl + '/requests?option=print&id='+id);

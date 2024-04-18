@@ -14,7 +14,7 @@ class TsrResource extends JsonResource
             'id' => $this->id,
             'code' => $this->code,
             'mode' => $this->mode,
-            'laboratory' => $this->laboratory->name,
+            'laboratory' => $this->laboratory,
             'purpose' => $this->purpose->name,
             'status' => $this->status,
             'customer' => new CustomerViewResource($this->customer),

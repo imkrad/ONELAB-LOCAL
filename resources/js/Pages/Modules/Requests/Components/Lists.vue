@@ -56,7 +56,7 @@
                         <i v-else class="ri-close-circle-fill text-danger fs-18" v-b-tooltip.hover :title="list.payment.status.name"></i>
                     </td>
                     <td class="text-end">
-                        <b-button @click="openView(list)" variant="soft-info" class="me-1" v-b-tooltip.hover title="View" size="sm">
+                        <b-button @click="openView(list,index)" variant="soft-info" class="me-1" v-b-tooltip.hover title="View" size="sm">
                             <i class="ri-eye-fill align-bottom"></i>
                         </b-button>
                         <b-button v-if="list.status.name !== 'Pending'" @click="openEdit(list,index)" variant="soft-success" v-b-tooltip.hover title="Print" size="sm">
@@ -73,7 +73,7 @@
     </div>
     <Create :dropdowns="dropdowns" @message="fetch()" ref="create"/>
     <Cancel ref="cancel"/>
-    <View ref="view"/>
+    <View @updateMain="updateMain" ref="view"/>
 </template>
 <script>
 import _ from 'lodash';
@@ -141,11 +141,15 @@ export default {
         openCreate(){
             this.$refs.create.show();
         },
-        openView(data){
+        openView(data,index){
+            this.index = index;
             this.$refs.view.show(data);
         },
         openCancel(data,index){
             this.$refs.cancel.show(data.id);
+        },
+        updateMain(data){
+            this.lists[this.index] = data;
         }
     }
 }

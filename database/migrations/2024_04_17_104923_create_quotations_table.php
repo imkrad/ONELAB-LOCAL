@@ -16,7 +16,6 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->string('code')->unique()->nullable();
             $table->json('mode');
-            $table->longText('terms')->nullable();
             $table->decimal('total',12,2)->default(0.00);
             $table->decimal('subtotal',12,2)->default(0.00);
             $table->decimal('discount',12,2)->default(0.00);

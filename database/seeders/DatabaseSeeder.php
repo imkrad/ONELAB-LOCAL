@@ -34,5 +34,6 @@ class DatabaseSeeder extends Seeder
         ]);
        
         $this->call(ListMenusTableSeeder::class);
+        $this->call(ListStatusesTableSeeder::class);
     }
 }
