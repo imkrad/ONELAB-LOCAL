@@ -166,7 +166,7 @@
                                         </table>
                                     </div>
                                     <div class="d-grid gap-2">
-                                        <b-button v-if="selected.status.name !== 'Pending'" @click="openSave(selected.id)" class="mt-3" variant="light"><i class="ri-printer-fill"></i> Print TSR</b-button>
+                                        <b-button v-if="selected.status.name !== 'Pending'" @click="openPrint(selected.id)" class="mt-3" variant="light"><i class="ri-printer-fill"></i> Print TSR</b-button>
                                         <b-button v-if="selected.status.name === 'Pending'" @click="openSave(selected.id)" class="mt-3" variant="primary">Save TSR</b-button>
                                     </div>
                                 </div>
@@ -219,6 +219,9 @@ export default {
         updateSelected(data){
             this.selected = data;
             this.$refs.samples.fetch(this.selected.id);
+        },
+        openPrint(id){
+            window.open(this.currentUrl + '/requests?option=print&id='+id);
         },
         hide(){
             this.showModal = false;

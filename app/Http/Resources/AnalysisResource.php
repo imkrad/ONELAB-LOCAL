@@ -13,6 +13,7 @@ class AnalysisResource extends JsonResource
             'id' => $this->id,
             'fee' => $this->fee,
             'status' => $this->status,
+            'sample' => $this->sample->name,
             'testname' => $this->testservice->testname->name,
             'method' => $this->testservice->method->method->name,
             'reference' => $this->testservice->method->reference->name,

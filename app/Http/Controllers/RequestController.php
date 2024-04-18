@@ -22,6 +22,9 @@ class RequestController extends Controller
             case 'lists':
                 return $this->req->lists($request);
             break;
+            case 'print':
+                return $this->req->print($request);
+            break;
             default :
             return inertia('Modules/Requests/Index',[
                 'dropdowns' => [
