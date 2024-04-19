@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [App\Http\Controllers\WelcomeController::class, 'index']);
+Route::get('/verification/{code}', [App\Http\Controllers\WelcomeController::class, 'verification']);
 
 Route::middleware(['2fa','auth','verified'])->group(function () {
 

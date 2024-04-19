@@ -4,14 +4,19 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Hashids\Hashids;
 
 class TsrResource extends JsonResource
 {
 
     public function toArray(Request $request): array
     {
+        $hashids = new Hashids('krad',10);
+        $code = $hashids->encode($this->id);
+
         return [
             'id' => $this->id,
+            'qr' => $code,
             'code' => $this->code,
             'mode' => $this->mode,
             'laboratory' => $this->laboratory,

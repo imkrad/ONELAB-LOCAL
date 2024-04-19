@@ -86,7 +86,7 @@ label {
 
         <div style="font-family:Arial;">
             <img src="{{ asset('images/logo-sm.png') }}" alt="tag" style="position: absolute; top: -4; left: 90; width: 50px; height: 50px;">
-            <center style="font-size: 11px; margin-bottom: 0px;">{{$configuration['name']}}</center>
+            <center style="font-size: 10px; margin-bottom: 0px; text-transform: uppercase;">{{$configuration['name']}}</center>
             <center style="font-size: 11px; margin-bottom: 0px; font-weight: bold;">REGIONAL STANDARDS AND TESTING LABORATORIES</center>
             <center style="font-size: 11px;">Pettit Baracks, Zamboanga City | (062) 991-1024</center>
             <br/>
@@ -128,41 +128,43 @@ label {
         <table style="border: 1px solid black; font-size: 10px; margin-top: -22px;">
             <thead style="background-color:#c8c8c8; padding: 5px; font-size: 9px;">
                 <tr>    
-                    <th width="20%">SAMPLE</th>
-                    <th width="25%">TESTNAME</th>
+                    <th width="13%">CODE</th>
+                    <th width="16%">SAMPLE</th>
+                    <th width="20%">TESTNAME</th>
                     <th width="25%">TEST METHOD</th>
-                    <th width="10%">QNTY</th>
+                    <th width="6%">QNTY</th>
                     <th width="10%">COST</th>
                     <th width="10%">TOTAL</th>
                 </tr>
             </thead>
             <tbody>
             @foreach($samples as $index=>$sample)
-                <tr style="text-align: center;">
+                <tr style="text-align: center; font-size: 9px;">
+                    <td>{{$sample['samplecode']}}</td>
                     <td>{{$sample['samplename']}}</td>
                     <td>{{$sample['testname']}}</td>
                     <td>{{$sample['method']}}</td>
                     <td>{{$sample['count']}}</td>
-                    <td><span style="font-family: DejaVu Sans;">&#8369;</span>{{trim(str_replace(',','',$sample['fee']),'₱ ')}}</td>
+                    <td><span style="font-family: DejaVu Sans;">&#8369;</span>{{trim($sample['fee'],'₱ ')}}</td>
                     <td><span style="font-family: DejaVu Sans;">&#8369;</span>{{number_format(trim(str_replace(',','',$sample['fee']),'₱ ')*$sample['count'],2,".",",")}}</td>
                 </tr>
             @endforeach
             </tbody>
             <tfoot style="text-align: center; padding: 3px; font-weight: bold; background-color:#c8c8c8;">
                 <tr>
-                    <td colspan="4"></td>
+                    <td colspan="5"></td>
                     <td style="font-size: 8px;">SUBTOTAL</td>
-                    <td><span style="font-family: DejaVu Sans;">&#8369;</span>{{trim(str_replace(',','',$tsr['payment']['subtotal']),'₱ ')}}</td>
+                    <td style="font-size: 9px;"><span style="font-family: DejaVu Sans;">&#8369;</span>{{trim($tsr['payment']['subtotal'],'₱ ')}}</td>
                 </tr>
                 <tr>
-                    <td colspan="4"></td>
+                    <td colspan="5"></td>
                     <td style="font-size: 8px;">DISCOUNT</td>
-                    <td><span style="font-family: DejaVu Sans;">&#8369;</span>{{trim(str_replace(',','',$tsr['payment']['discount']),'₱ ')}}</td>
+                    <td style="font-size: 9px;"><span style="font-family: DejaVu Sans;">&#8369;</span>{{trim($tsr['payment']['discount'],'₱ ')}}</td>
                 </tr>
                 <tr>
-                    <td colspan="4"></td>
+                    <td colspan="5"></td>
                     <td style="font-size: 8px;">TOTAL</td>
-                    <td><span style="font-family: DejaVu Sans;">&#8369;</span>{{trim(str_replace(',','',$tsr['payment']['total']),'₱ ')}}</td>
+                    <td style="font-size: 9px;"><span style="font-family: DejaVu Sans;">&#8369;</span>{{trim($tsr['payment']['total'],'₱ ')}}</td>
                 </tr>
             </tfoot>
         </table>
@@ -264,7 +266,7 @@ label {
         <div class="page-break"></div>
         <div style="font-family:Arial;">
             <img src="{{ asset('images/logo-sm.png') }}" alt="tag" style="position: absolute; top: -4; left: 90; width: 50px; height: 50px;">
-            <center style="font-size: 11px; margin-bottom: 0px;">{{$configuration['name']}}</center>
+            <center style="font-size: 10px; margin-bottom: 0px; text-transform: uppercase;">{{$configuration['name']}}</center>
             <center style="font-size: 11px; margin-bottom: 0px; font-weight: bold;">REGIONAL STANDARDS AND TESTING LABORATORIES</center>
             <center style="font-size: 11px;">Pettit Baracks, Zamboanga City | (062) 991-1024</center>
             <br/>
@@ -306,41 +308,43 @@ label {
         <table style="border: 1px solid black; font-size: 10px; margin-top: -22px;">
             <thead style="background-color:#c8c8c8; padding: 5px; font-size: 9px;">
                 <tr>    
-                    <th width="20%">SAMPLE</th>
-                    <th width="25%">TESTNAME</th>
+                    <th width="13%">CODE</th>
+                    <th width="16%">SAMPLE</th>
+                    <th width="20%">TESTNAME</th>
                     <th width="25%">TEST METHOD</th>
-                    <th width="10%">QNTY</th>
+                    <th width="6%">QNTY</th>
                     <th width="10%">COST</th>
                     <th width="10%">TOTAL</th>
                 </tr>
             </thead>
             <tbody>
             @foreach($samples as $index=>$sample)
-                <tr style="text-align: center;">
+                <tr style="text-align: center; font-size: 9px;">
+                    <td>{{$sample['samplecode']}}</td>
                     <td>{{$sample['samplename']}}</td>
                     <td>{{$sample['testname']}}</td>
                     <td>{{$sample['method']}}</td>
                     <td>{{$sample['count']}}</td>
-                    <td><span style="font-family: DejaVu Sans;">&#8369;</span>{{trim(str_replace(',','',$sample['fee']),'₱ ')}}</td>
+                    <td><span style="font-family: DejaVu Sans;">&#8369;</span>{{trim($sample['fee'],'₱ ')}}</td>
                     <td><span style="font-family: DejaVu Sans;">&#8369;</span>{{number_format(trim(str_replace(',','',$sample['fee']),'₱ ')*$sample['count'],2,".",",")}}</td>
                 </tr>
             @endforeach
             </tbody>
             <tfoot style="text-align: center; padding: 3px; font-weight: bold; background-color:#c8c8c8;">
                 <tr>
-                    <td colspan="4"></td>
+                    <td colspan="5"></td>
                     <td style="font-size: 8px;">SUBTOTAL</td>
-                    <td><span style="font-family: DejaVu Sans;">&#8369;</span>{{trim(str_replace(',','',$tsr['payment']['subtotal']),'₱ ')}}</td>
+                    <td style="font-size: 9px;"><span style="font-family: DejaVu Sans;">&#8369;</span>{{trim($tsr['payment']['subtotal'],'₱ ')}}</td>
                 </tr>
                 <tr>
-                    <td colspan="4"></td>
+                    <td colspan="5"></td>
                     <td style="font-size: 8px;">DISCOUNT</td>
-                    <td><span style="font-family: DejaVu Sans;">&#8369;</span>{{trim(str_replace(',','',$tsr['payment']['discount']),'₱ ')}}</td>
+                    <td style="font-size: 9px;"><span style="font-family: DejaVu Sans;">&#8369;</span>{{trim($tsr['payment']['discount'],'₱ ')}}</td>
                 </tr>
                 <tr>
-                    <td colspan="4"></td>
+                    <td colspan="5"></td>
                     <td style="font-size: 8px;">TOTAL</td>
-                    <td><span style="font-family: DejaVu Sans;">&#8369;</span>{{trim(str_replace(',','',$tsr['payment']['total']),'₱ ')}}</td>
+                    <td style="font-size: 9px;"><span style="font-family: DejaVu Sans;">&#8369;</span>{{trim($tsr['payment']['total'],'₱ ')}}</td>
                 </tr>
             </tfoot>
         </table>
@@ -442,7 +446,7 @@ label {
         <div class="page-break"></div>
         <div style="font-family:Arial;">
             <img src="{{ asset('images/logo-sm.png') }}" alt="tag" style="position: absolute; top: -4; left: 90; width: 50px; height: 50px;">
-            <center style="font-size: 11px; margin-bottom: 0px;">{{$configuration['name']}}</center>
+            <center style="font-size: 10px; margin-bottom: 0px; text-transform: uppercase;">{{$configuration['name']}}</center>
             <center style="font-size: 11px; margin-bottom: 0px; font-weight: bold;">REGIONAL STANDARDS AND TESTING LABORATORIES</center>
             <center style="font-size: 11px;">Pettit Baracks, Zamboanga City | (062) 991-1024</center>
             <br/>
@@ -484,41 +488,43 @@ label {
         <table style="border: 1px solid black; font-size: 10px; margin-top: -22px;">
             <thead style="background-color:#c8c8c8; padding: 5px; font-size: 9px;">
                 <tr>    
-                    <th width="20%">SAMPLE</th>
-                    <th width="25%">TESTNAME</th>
+                    <th width="13%">CODE</th>
+                    <th width="16%">SAMPLE</th>
+                    <th width="20%">TESTNAME</th>
                     <th width="25%">TEST METHOD</th>
-                    <th width="10%">QNTY</th>
+                    <th width="6%">QNTY</th>
                     <th width="10%">COST</th>
                     <th width="10%">TOTAL</th>
                 </tr>
             </thead>
             <tbody>
             @foreach($samples as $index=>$sample)
-                <tr style="text-align: center;">
+                <tr style="text-align: center; font-size: 9px;">
+                    <td>{{$sample['samplecode']}}</td>
                     <td>{{$sample['samplename']}}</td>
                     <td>{{$sample['testname']}}</td>
                     <td>{{$sample['method']}}</td>
                     <td>{{$sample['count']}}</td>
-                    <td><span style="font-family: DejaVu Sans;">&#8369;</span>{{trim(str_replace(',','',$sample['fee']),'₱ ')}}</td>
+                    <td><span style="font-family: DejaVu Sans;">&#8369;</span>{{trim($sample['fee'],'₱ ')}}</td>
                     <td><span style="font-family: DejaVu Sans;">&#8369;</span>{{number_format(trim(str_replace(',','',$sample['fee']),'₱ ')*$sample['count'],2,".",",")}}</td>
                 </tr>
             @endforeach
             </tbody>
             <tfoot style="text-align: center; padding: 3px; font-weight: bold; background-color:#c8c8c8;">
                 <tr>
-                    <td colspan="4"></td>
+                    <td colspan="5"></td>
                     <td style="font-size: 8px;">SUBTOTAL</td>
-                    <td><span style="font-family: DejaVu Sans;">&#8369;</span>{{trim(str_replace(',','',$tsr['payment']['subtotal']),'₱ ')}}</td>
+                    <td style="font-size: 9px;"><span style="font-family: DejaVu Sans;">&#8369;</span>{{trim($tsr['payment']['subtotal'],'₱ ')}}</td>
                 </tr>
                 <tr>
-                    <td colspan="4"></td>
+                    <td colspan="5"></td>
                     <td style="font-size: 8px;">DISCOUNT</td>
-                    <td><span style="font-family: DejaVu Sans;">&#8369;</span>{{trim(str_replace(',','',$tsr['payment']['discount']),'₱ ')}}</td>
+                    <td style="font-size: 9px;"><span style="font-family: DejaVu Sans;">&#8369;</span>{{trim($tsr['payment']['discount'],'₱ ')}}</td>
                 </tr>
                 <tr>
-                    <td colspan="4"></td>
+                    <td colspan="5"></td>
                     <td style="font-size: 8px;">TOTAL</td>
-                    <td><span style="font-family: DejaVu Sans;">&#8369;</span>{{trim(str_replace(',','',$tsr['payment']['total']),'₱ ')}}</td>
+                    <td style="font-size: 9px;"><span style="font-family: DejaVu Sans;">&#8369;</span>{{trim($tsr['payment']['total'],'₱ ')}}</td>
                 </tr>
             </tfoot>
         </table>

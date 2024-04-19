@@ -144,14 +144,16 @@ class RequestService
 
         $groupedData = [];
         foreach ($samples as $row) {
+            $sampleCode = $row['sample']['code'];
             $sampleName = $row['sample']['name'];
             $testName = $row['testservice']['testname']['name'];
             $testMethod = $row['testservice']['method']['method']['name'];
             
-            $key = $sampleName . "_" . $testName . "_" . $testMethod;
+            $key = $sampleCode . "_" . $testName . "_" . $testMethod;
             
             if (!isset($groupedData[$key])) {
                 $groupedData[$key] = [
+                    "samplecode" => $sampleCode,
                     "samplename" => $sampleName,
                     "testname" => $testName,
                     "method" => $testMethod,
