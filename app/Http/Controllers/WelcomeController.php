@@ -9,12 +9,20 @@ use App\Models\TsrAnalysis;
 use Illuminate\Http\Request;
 use App\Http\Resources\TsrResource;
 use App\Http\Resources\SampleResource;
+use App\Services\DropdownService;
 
 class WelcomeController extends Controller
 {
+
+    public function __construct(DropdownService $dropdown){
+        $this->dropdown = $dropdown;
+    }
+
     public function index(){
         if(\Auth::check()){
-            return inertia('Modules/Dashboard/Index');
+            return inertia('Modules/Dashboard/Index',[
+                'laboratories' => $this->dropdown->laboratory_types(),
+            ]);
         }else{
             return inertia('Auth/Login');
         }

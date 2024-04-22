@@ -1,5 +1,5 @@
 <template>
-    <b-modal v-model="showModal" hide-footer style="--vz-modal-width: 1000px;" header-class="p-3 bg-light" title="View Sample" class="v-modal-custom" modal-class="zoomIn" centered no-close-on-backdrop>
+    <b-modal v-model="showModal" hide-footer style="--vz-modal-width: 1200px;" header-class="p-3 bg-light" title="View Sample" class="v-modal-custom" modal-class="zoomIn" centered no-close-on-backdrop>
         <form class="customform">
             <div class="row g-3">
                 <div class="col-md-12">
@@ -15,10 +15,12 @@
                             <thead class="table-light">
                                 <tr class="fs-11">
                                     <th class="text-center" width="5%">#</th>
-                                    <th width="25%">Test Name</th>
-                                    <th class="text-center" width="40%">Method Reference</th>
-                                    <th class="text-center" width="15%">Fee</th>
-                                    <th class="text-center" width="15%">Status</th>
+                                    <th width="20%">Test Name</th>
+                                    <th class="text-center" width="30%">Method Reference</th>
+                                    
+                                    <th class="text-center" width="20%">Analyst</th>
+                                    <th class="text-center" width="12%">Fee</th>
+                                    <th class="text-center" width="13%">Status</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -32,6 +34,7 @@
                                         <h5 class="fs-12 mb-0">{{list.method}}</h5>
                                         <p class="fs-11 text-muted mb-0">{{list.reference}}</p>
                                     </td>
+                                    <td class="text-center">{{list.analyst}}</td>
                                     <td class="text-center">{{list.fee}}</td>
                                     <td class="text-center">
                                         <span :class="'badge '+list.status.color+' '+list.status.others">{{list.status.name}}</span>

@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Tsr;
 use App\Models\TsrAnalysis;
 use App\Models\TsrPayment;
+use App\Http\Resources\TestnameTopResource;
 use App\Http\Resources\AnalysisResource;
 
 class AnalysisService
@@ -107,5 +108,25 @@ class AnalysisService
             'message' => 'TSR cancellation was successful!', 
             'info' => "You've successfully updated the tsr status.",
         ];
+    }
+
+    public function top($request){
+        $year = $request->year;
+        $sort = $request->sort;
+        $laboratory = $request->laboratory;
+        $data = TsrAnalysis::whereHas('sample',function ($query) use ($year,$laboratory){
+            $query->whereHas('tsr',function ($query) use ($year,$laboratory){
+                $query->where('status_id',3)->whereYear('created_at',$year)
+                ->when($laboratory, function ($query, $laboratory) {
+                    $query->where('laboratory_id', $laboratory);
+                });
+            });
+        })
+        ->join('list_testservices', 'tsr_analyses.testservice_id', '=', 'list_testservices.id')
+        ->join('list_names', 'list_testservices.testname_id', '=', 'list_names.id')
+        ->select('list_names.name', \DB::raw('COUNT(*) as count'))
+        ->groupBy('list_testservices.testname_id')
+        ->orderBy('count', $sort)->take(5)->get();
+        return TestnameTopResource::collection($data);
     }
 }

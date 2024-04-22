@@ -20,6 +20,9 @@ class AnalysisController extends Controller
             case 'lists':
                 return $this->analysis->lists($request);
             break;
+            case 'top':
+                return $this->analysis->top($request);
+            break;
         }
     }
 

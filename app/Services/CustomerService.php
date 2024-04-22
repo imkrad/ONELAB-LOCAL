@@ -8,6 +8,7 @@ use App\Models\Laboratory;
 use App\Models\CustomerName;
 use App\Models\CustomerConforme;
 use App\Http\Resources\CustomerResource;
+use App\Http\Resources\CustomerTopResource;
 
 class CustomerService
 {
@@ -135,4 +136,22 @@ class CustomerService
         $code = $lab->code.str_pad(($c+1), 5, '0', STR_PAD_LEFT);  
         return $code;
     }
+
+    public function listcustomers($request){
+        $year = $request->year;
+        $laboratory = $request->laboratory;
+        $data = Customer::with('customer_name')->withCount([
+        'tsrs' => function ($query) use ($year,$laboratory){
+            $query->where('status_id', 3)->whereYear('created_at',$year)
+            ->when($laboratory, function ($query, $laboratory) {
+                $query->where('laboratory_id', $laboratory);
+            });
+        }])
+        ->when($request->sort, function ($query, $sort) {
+            $query->orderBy('tsrs_count', $sort);
+        })
+        ->paginate(10);
+        return CustomerTopResource::collection($data);
+    }
+
 }

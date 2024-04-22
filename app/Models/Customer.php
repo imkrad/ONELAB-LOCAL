@@ -33,6 +33,11 @@ class Customer extends Model
         return $this->belongsTo('App\Models\CustomerName', 'name_id', 'id');
     }
 
+    public function tsrs()
+    {
+        return $this->hasMany('App\Models\Tsr', 'customer_id');
+    }
+
     public function conformes()
     {
         return $this->hasMany('App\Models\CustomerConforme', 'customer_id');

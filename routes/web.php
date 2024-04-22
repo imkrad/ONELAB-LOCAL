@@ -8,6 +8,7 @@ Route::get('/verification/{code}', [App\Http\Controllers\WelcomeController::clas
 Route::middleware(['2fa','auth','verified'])->group(function () {
 
     Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index']);
+    Route::get('/insights', [App\Http\Controllers\InsightController::class, 'index']);
     Route::resource('/profile', App\Http\Controllers\User\ProfileController::class);
 
     Route::resource('/customers', App\Http\Controllers\CustomerController::class);

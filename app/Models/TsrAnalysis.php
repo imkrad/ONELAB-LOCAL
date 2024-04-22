@@ -42,4 +42,15 @@ class TsrAnalysis extends Model
     {
         return '₱'.number_format($value,2,'.',',');
     }
+
+    public function getStartAtAttribute($value)
+    {
+        return date('M d, Y g:i a', strtotime($value));
+    }
+
+    public function getEndAtAttribute($value)
+    {
+        return date('M d, Y g:i a', strtotime($value));
+    }
+
 }

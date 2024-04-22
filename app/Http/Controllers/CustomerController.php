@@ -34,6 +34,9 @@ class CustomerController extends Controller
             case 'syncable':
                 return $this->customer->syncable();
             break;
+            case 'listcustomers':
+                return $this->customer->listcustomers($request);
+            break;
             default :
             return inertia('Modules/Customers/Index',[
                 'dropdowns' => [

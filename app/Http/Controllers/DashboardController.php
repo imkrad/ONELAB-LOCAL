@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\Dashboard\AnalystService;
+use App\Services\DropdownService;
 
 class DashboardController extends Controller
 {
-    public function __construct(AnalystService $analyst){
+    public function __construct(AnalystService $analyst, DropdownService $dropdown){
         $this->analyst = $analyst;
+        $this->dropdown = $dropdown;
     }
 
     public function index(){
@@ -22,7 +24,9 @@ class DashboardController extends Controller
                 ]);
             break;
             default:
-                return inertia('Modules/Dashboard/Index');
+                return inertia('Modules/Dashboard/Index',[
+                    'laboratories' => $this->dropdown->laboratory_types(),
+                ]);
         }   
     }
 }
