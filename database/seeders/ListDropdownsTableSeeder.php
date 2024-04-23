@@ -6,9 +6,8 @@ use Illuminate\Database\Seeder;
 
 class ListDropdownsTableSeeder extends Seeder
 {
-
     /**
-     * Auto generated seed file
+     * Auto generated seeder file.
      *
      * @return void
      */
@@ -16,7 +15,7 @@ class ListDropdownsTableSeeder extends Seeder
     {
         
 
-        \DB::table('list_dropdowns')->delete();
+        \DB::table('list_dropdowns')->truncate();
         
         \DB::table('list_dropdowns')->insert(array (
             0 => 
@@ -127,7 +126,7 @@ class ListDropdownsTableSeeder extends Seeder
                 'type' => 'n/a',
                 'color' => 'n/a',
                 'others' => 'PHY',
-                'is_active' => 1,
+                'is_active' => 0,
             ),
             11 => 
             array (
@@ -137,7 +136,7 @@ class ListDropdownsTableSeeder extends Seeder
                 'type' => 'n/a',
                 'color' => 'n/a',
                 'others' => 'FOC',
-                'is_active' => 1,
+                'is_active' => 0,
             ),
             12 => 
             array (
@@ -147,7 +146,7 @@ class ListDropdownsTableSeeder extends Seeder
                 'type' => 'n/a',
                 'color' => 'n/a',
                 'others' => 'SHL',
-                'is_active' => 1,
+                'is_active' => 0,
             ),
             13 => 
             array (
@@ -157,7 +156,7 @@ class ListDropdownsTableSeeder extends Seeder
                 'type' => 'n/a',
                 'color' => 'n/a',
                 'others' => 'BIO',
-                'is_active' => 1,
+                'is_active' => 0,
             ),
             14 => 
             array (
@@ -167,7 +166,7 @@ class ListDropdownsTableSeeder extends Seeder
                 'type' => 'n/a',
                 'color' => 'n/a',
                 'others' => 'GEB',
-                'is_active' => 1,
+                'is_active' => 0,
             ),
             15 => 
             array (
@@ -177,7 +176,7 @@ class ListDropdownsTableSeeder extends Seeder
                 'type' => 'n/a',
                 'color' => 'n/a',
                 'others' => 'PPTL',
-                'is_active' => 1,
+                'is_active' => 0,
             ),
             16 => 
             array (
@@ -187,7 +186,7 @@ class ListDropdownsTableSeeder extends Seeder
                 'type' => 'n/a',
                 'color' => 'n/a',
                 'others' => 'PLY',
-                'is_active' => 1,
+                'is_active' => 0,
             ),
             17 => 
             array (
@@ -197,7 +196,7 @@ class ListDropdownsTableSeeder extends Seeder
                 'type' => 'n/a',
                 'color' => 'n/a',
                 'others' => 'PPT',
-                'is_active' => 1,
+                'is_active' => 0,
             ),
             18 => 
             array (
@@ -207,7 +206,7 @@ class ListDropdownsTableSeeder extends Seeder
                 'type' => 'n/a',
                 'color' => 'n/a',
                 'others' => 'FTC',
-                'is_active' => 1,
+                'is_active' => 0,
             ),
             19 => 
             array (
@@ -217,7 +216,7 @@ class ListDropdownsTableSeeder extends Seeder
                 'type' => 'n/a',
                 'color' => 'n/a',
                 'others' => 'MML',
-                'is_active' => 1,
+                'is_active' => 0,
             ),
             20 => 
             array (
@@ -227,7 +226,7 @@ class ListDropdownsTableSeeder extends Seeder
                 'type' => 'n/a',
                 'color' => 'n/a',
                 'others' => 'PCL',
-                'is_active' => 1,
+                'is_active' => 0,
             ),
             21 => 
             array (
@@ -237,7 +236,7 @@ class ListDropdownsTableSeeder extends Seeder
                 'type' => 'n/a',
                 'color' => 'n/a',
                 'others' => 'COR',
-                'is_active' => 1,
+                'is_active' => 0,
             ),
             22 => 
             array (
@@ -247,7 +246,7 @@ class ListDropdownsTableSeeder extends Seeder
                 'type' => 'n/a',
                 'color' => 'n/a',
                 'others' => 'HAL',
-                'is_active' => 1,
+                'is_active' => 0,
             ),
             23 => 
             array (
@@ -257,7 +256,7 @@ class ListDropdownsTableSeeder extends Seeder
                 'type' => 'n/a',
                 'color' => 'n/a',
                 'others' => 'OCS',
-                'is_active' => 1,
+                'is_active' => 0,
             ),
             24 => 
             array (
@@ -267,7 +266,7 @@ class ListDropdownsTableSeeder extends Seeder
                 'type' => 'n/a',
                 'color' => 'n/a',
                 'others' => 'ICS',
-                'is_active' => 1,
+                'is_active' => 0,
             ),
             25 => 
             array (
@@ -277,7 +276,7 @@ class ListDropdownsTableSeeder extends Seeder
                 'type' => 'n/a',
                 'color' => 'n/a',
                 'others' => 'PTS',
-                'is_active' => 1,
+                'is_active' => 0,
             ),
             26 => 
             array (
@@ -287,7 +286,7 @@ class ListDropdownsTableSeeder extends Seeder
                 'type' => 'n/a',
                 'color' => 'n/a',
                 'others' => 'RPS',
-                'is_active' => 1,
+                'is_active' => 0,
             ),
             27 => 
             array (
@@ -297,7 +296,7 @@ class ListDropdownsTableSeeder extends Seeder
                 'type' => 'n/a',
                 'color' => 'n/a',
                 'others' => 'ADMATEL',
-                'is_active' => 1,
+                'is_active' => 0,
             ),
             28 => 
             array (
@@ -307,7 +306,7 @@ class ListDropdownsTableSeeder extends Seeder
                 'type' => 'n/a',
                 'color' => 'n/a',
                 'others' => 'NML',
-                'is_active' => 1,
+                'is_active' => 0,
             ),
             29 => 
             array (
@@ -317,7 +316,7 @@ class ListDropdownsTableSeeder extends Seeder
                 'type' => 'n/a',
                 'color' => 'n/a',
                 'others' => 'PTD',
-                'is_active' => 1,
+                'is_active' => 0,
             ),
             30 => 
             array (
@@ -327,7 +326,7 @@ class ListDropdownsTableSeeder extends Seeder
                 'type' => 'n/a',
                 'color' => 'n/a',
                 'others' => 'NATA',
-                'is_active' => 1,
+                'is_active' => 0,
             ),
             31 => 
             array (
@@ -337,7 +336,7 @@ class ListDropdownsTableSeeder extends Seeder
                 'type' => 'n/a',
                 'color' => 'n/a',
                 'others' => 'BIOCHE',
-                'is_active' => 1,
+                'is_active' => 0,
             ),
             32 => 
             array (
@@ -347,7 +346,7 @@ class ListDropdownsTableSeeder extends Seeder
                 'type' => 'n/a',
                 'color' => 'n/a',
                 'others' => 'RTL',
-                'is_active' => 1,
+                'is_active' => 0,
             ),
             33 => 
             array (
@@ -357,7 +356,7 @@ class ListDropdownsTableSeeder extends Seeder
                 'type' => 'n/a',
                 'color' => 'n/a',
                 'others' => 'ATL',
-                'is_active' => 1,
+                'is_active' => 0,
             ),
             34 => 
             array (
@@ -367,7 +366,7 @@ class ListDropdownsTableSeeder extends Seeder
                 'type' => 'n/a',
                 'color' => 'n/a',
                 'others' => 'INS',
-                'is_active' => 1,
+                'is_active' => 0,
             ),
             35 => 
             array (
@@ -377,7 +376,7 @@ class ListDropdownsTableSeeder extends Seeder
                 'type' => 'n/a',
                 'color' => 'n/a',
                 'others' => 'NDT',
-                'is_active' => 1,
+                'is_active' => 0,
             ),
             36 => 
             array (
@@ -913,8 +912,8 @@ class ListDropdownsTableSeeder extends Seeder
             array (
                 'id' => 91,
                 'name' => 'Percentage',
-                'classification' => 'Discount Type',
-                'type' => 'n/a',
+                'classification' => 'Discount',
+                'type' => 'Subtype',
                 'color' => 'n/a',
                 'others' => 'n/a',
                 'is_active' => 1,
@@ -923,8 +922,8 @@ class ListDropdownsTableSeeder extends Seeder
             array (
                 'id' => 92,
                 'name' => 'Amount',
-                'classification' => 'Discount Type',
-                'type' => 'n/a',
+                'classification' => 'Discount',
+                'type' => 'Subtype',
                 'color' => 'n/a',
                 'others' => 'n/a',
                 'is_active' => 1,
@@ -979,8 +978,118 @@ class ListDropdownsTableSeeder extends Seeder
                 'others' => 'n/a',
                 'is_active' => 1,
             ),
+            96 => 
+            array (
+                'id' => 98,
+                'name' => 'Unlimited',
+                'classification' => 'Discount',
+                'type' => 'Type',
+                'color' => 'n/a',
+                'others' => 'n/a',
+                'is_active' => 1,
+            ),
+            97 => 
+            array (
+                'id' => 99,
+                'name' => 'Limited',
+                'classification' => 'Discount',
+                'type' => 'Type',
+                'color' => 'n/a',
+                'others' => 'n/a',
+                'is_active' => 1,
+            ),
+            98 => 
+            array (
+                'id' => 100,
+                'name' => 'Total Based',
+                'classification' => 'Discount',
+                'type' => 'Based',
+                'color' => 'n/a',
+                'others' => 'n/a',
+                'is_active' => 1,
+            ),
+            99 => 
+            array (
+                'id' => 101,
+                'name' => 'Item Based',
+                'classification' => 'Discount',
+                'type' => 'Based',
+                'color' => 'n/a',
+                'others' => 'n/a',
+                'is_active' => 1,
+            ),
+            100 => 
+            array (
+                'id' => 102,
+                'name' => 'Occassional Based',
+                'classification' => 'Discount',
+                'type' => 'Based',
+                'color' => 'n/a',
+                'others' => 'n/a',
+                'is_active' => 1,
+            ),
+            101 => 
+            array (
+                'id' => 103,
+                'name' => 'Cash',
+                'classification' => 'Payment Mode',
+                'type' => 'n/a',
+                'color' => 'n/a',
+                'others' => 'n/a',
+                'is_active' => 1,
+            ),
+            102 => 
+            array (
+                'id' => 104,
+                'name' => 'Cheque',
+                'classification' => 'Payment Mode',
+                'type' => 'n/a',
+                'color' => 'n/a',
+                'others' => 'n/a',
+                'is_active' => 1,
+            ),
+            103 => 
+            array (
+                'id' => 105,
+                'name' => 'Money Order',
+                'classification' => 'Payment Mode',
+                'type' => 'n/a',
+                'color' => 'n/a',
+                'others' => 'n/a',
+                'is_active' => 1,
+            ),
+            104 => 
+            array (
+                'id' => 106,
+                'name' => 'Bank to Bank',
+                'classification' => 'Payment Mode',
+                'type' => 'n/a',
+                'color' => 'n/a',
+                'others' => 'n/a',
+                'is_active' => 1,
+            ),
+            105 => 
+            array (
+                'id' => 107,
+                'name' => 'Analysis Fee',
+                'classification' => 'Collection Type',
+                'type' => 'n/a',
+                'color' => 'n/a',
+                'others' => 'n/a',
+                'is_active' => 1,
+            ),
+            106 => 
+            array (
+                'id' => 108,
+                'name' => 'Calibration Fee',
+                'classification' => 'Collection Type',
+                'type' => 'n/a',
+                'color' => 'n/a',
+                'others' => 'n/a',
+                'is_active' => 1,
+            ),
         ));
-        
+
         
     }
 }

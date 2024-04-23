@@ -12,8 +12,8 @@
                 </div>
                 <div class="col-md-4">
                     <div class="card">
-                        <div class="card-body">
-                        
+                        <div class="card-body bg-info-subtle">
+                            <Referral ref="referral"/>
                         </div>
                     </div>
                 </div>
@@ -61,6 +61,7 @@
     </b-row>
 </template>
 <script>
+import Referral from './Modules/Referral.vue';
 import Testname from './Modules/Testname.vue';
 import Customer from './Modules/Customer.vue';
 import Count from './Modules/Count.vue';
@@ -68,7 +69,7 @@ import Recap from './Modules/Recap.vue';
 import Target from './Modules/Target.vue';
 import PageHeader from '@/Shared/Components/PageHeader.vue';
 export default {
-    components: { PageHeader, Count, Recap, Target, Customer, Testname },
+    components: { PageHeader, Count, Recap, Target, Customer, Testname, Referral },
     props: ['laboratories'],
     data(){
         return {

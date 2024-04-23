@@ -1,5 +1,5 @@
 <template>
-    <b-modal v-model="showModal" hide-footer title="Customer Counts" class="v-modal-custom" modal-class="zoomIn" size="lg" centered>
+    <b-modal v-model="showModal" hide-footer title="Testname Counts" class="v-modal-custom" modal-class="zoomIn" size="lg" centered>
         <div class="row mb-4">
             <b-col class="mb-2" lg>
                 <div class="input-group mb-1">

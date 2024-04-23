@@ -15,7 +15,7 @@ class ListMenusTableSeeder extends Seeder
     {
         
 
-        \DB::table('list_menus')->delete();
+        \DB::table('list_menus')->truncate();
         
         \DB::table('list_menus')->insert(array (
             0 => 
@@ -24,7 +24,7 @@ class ListMenusTableSeeder extends Seeder
                 'name' => 'Dashboard',
                 'icon' => 'ri-apps-line',
                 'route' => '/',
-                'path' => 'Modules/Home',
+                'path' => 'Modules/Dashboard',
                 'group' => 'Menu',
                 'order' => 1,
                 'has_child' => 0,
@@ -183,6 +183,19 @@ class ListMenusTableSeeder extends Seeder
                 'path' => 'Modules/Requests',
                 'group' => 'Menu',
                 'order' => 7,
+                'has_child' => 0,
+                'is_mother' => 1,
+                'is_active' => 1,
+            ),
+            13 => 
+            array (
+                'id' => 14,
+                'name' => 'Quotation',
+                'icon' => 'ri-price-tag-3-fill',
+                'route' => '/quotations',
+                'path' => 'Modules/Quotation',
+                'group' => 'Menu',
+                'order' => 8,
                 'has_child' => 0,
                 'is_mother' => 1,
                 'is_active' => 1,

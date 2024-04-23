@@ -126,7 +126,7 @@ class AnalysisService
         ->join('list_names', 'list_testservices.testname_id', '=', 'list_names.id')
         ->select('list_names.name', \DB::raw('COUNT(*) as count'))
         ->groupBy('list_testservices.testname_id')
-        ->orderBy('count', $sort)->take(5)->get();
+        ->orderBy('count', $sort)->paginate(10);
         return TestnameTopResource::collection($data);
     }
 }
